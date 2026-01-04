@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                             // Use the productDetailRoute and append the product slug
                             listItem.innerHTML = `
-                                <a href="${productDetailRoute + product.slug}" class="search-result-item">
+                                <a href="#" class="search-result-item">
                                     <div class="img-box">
                                         <img src="${product.photo}" alt="${product.title}">
                                     </div>

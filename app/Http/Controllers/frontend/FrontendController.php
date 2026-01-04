@@ -35,9 +35,32 @@ class FrontendController extends Controller
         $banners = Banner::where('status', 'active')->limit(3)->orderBy('id', 'DESC')->get();
 
         // return $banner;
-        $products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(8)->get();
+        $products = Product::where('status', 'active')->orderBy('id', 'DESC')->get();
         $categories = Category::where('status', 'active')->orderBy('title', 'ASC')->get();
         $subcategories = Category::where('status', 'active')->where('is_parent', 0)->orderBy('title', 'ASC')->get();
+
+        // Get categories with their products for mega menu
+        $megaMenuCategories = Category::where('status', 'active')
+            ->where('is_parent', 1) // Assuming parent categories
+            ->where('is_megamenu', 1) // Assuming parent categories
+            ->orderBy('title', 'ASC')
+            ->limit(3) // Limit to 3 categories for the 3 columns
+            ->get()
+            ->map(function ($category) {
+                // Load 3-4 products for each category
+                $category->products = Product::where('cat_id', $category->id)
+                    ->where('status', 'active')
+                    ->orderBy('id', 'DESC')
+                    ->limit(4)
+                    ->get();
+                return $category;
+            });
+
+        // Get best seller products for the 4th column
+        $bestSellerProducts = Product::where('status', 'active')
+            ->orderBy('id', 'DESC')
+            ->limit(4)
+            ->get();
 
 
         // return $category;
@@ -47,7 +70,9 @@ class FrontendController extends Controller
             ->with('banners', $banners)
             ->with('product_lists', $products)
             ->with('category_lists', $categories)
-            ->with('sub_category', $subcategories);
+            ->with('sub_category', $subcategories)
+            ->with('megaMenuCategories', $megaMenuCategories)
+            ->with('bestSellerProducts', $bestSellerProducts);
 
         // return view('frontend.v1.layouts.master');
     }

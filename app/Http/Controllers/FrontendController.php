@@ -226,7 +226,7 @@ class FrontendController extends Controller
         }
 
         $products = Product::where('status', 'active')
-            ->where(function($q) use ($query) {
+            ->where(function ($q) use ($query) {
                 $q->where('title', 'like', '%' . $query . '%')
                     ->orWhere('slug', 'like', '%' . $query . '%')
                     ->orWhere('description', 'like', '%' . $query . '%')

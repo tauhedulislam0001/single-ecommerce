@@ -144,7 +144,9 @@ class ProductController extends Controller
             $validatedData['size'] = '';
         }
 
-        $status = $product->update($validatedData);
+        // FILL and SAVE instead of UPDATE
+        $product->fill($validatedData);
+        $status = $product->save(); // This triggers the saving/updating events
 
         $message = $status
             ? 'Product Successfully updated'

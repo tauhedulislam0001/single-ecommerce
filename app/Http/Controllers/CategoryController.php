@@ -51,6 +51,7 @@ class CategoryController extends Controller
         $validatedData['slug'] = $slug;
         $validatedData['added_by'] = Auth::guard('web')->user()->id;
         $validatedData['is_parent'] = $request->input('is_parent', 0);
+        $validatedData['is_megamenu'] = $request->input('is_megamenu', 0);
 
         // If the category has a parent, get the parent category name
         if ($request->has('parent_id') && $request->parent_id) {
@@ -117,6 +118,7 @@ class CategoryController extends Controller
         ]);
 
         $validatedData['is_parent'] = $request->input('is_parent', 0);
+        $validatedData['is_megamenu'] = $request->input('is_megamenu', 0);
         $validatedData['added_by'] = Auth::guard('web')->user()->id;
 
         // If the category has a parent, get the parent category name and store it
