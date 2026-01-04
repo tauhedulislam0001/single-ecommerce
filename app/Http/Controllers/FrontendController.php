@@ -217,6 +217,28 @@ class FrontendController extends Controller
         return view('frontend.pages.product-grids')->with('products', $products)->with('recent_products', $recent_products);
     }
 
+    public function searchSuggestions(Request $request)
+    {
+        $query = $request->get('query');
+
+        if (strlen($query) < 2) {
+            return response()->json(['products' => []]);
+        }
+
+        $products = Product::where('status', 'active')
+            ->where(function($q) use ($query) {
+                $q->where('title', 'like', '%' . $query . '%')
+                    ->orWhere('slug', 'like', '%' . $query . '%')
+                    ->orWhere('description', 'like', '%' . $query . '%')
+                    ->orWhere('summary', 'like', '%' . $query . '%');
+            })
+            ->limit(5) // Limit to 5 suggestions
+            ->get(['id', 'title', 'slug', 'photo', 'price', 'discount', 'condition']);
+
+        return response()->json(['products' => $products]);
+    }
+
+
     public function productBrand(Request $request)
     {
         $products = Brand::getProductByBrand($request->slug);

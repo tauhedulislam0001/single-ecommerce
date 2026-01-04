@@ -331,6 +331,7 @@
             padding: 18px 25px;
             border-radius: var(--border-radius);
             background-color: white;
+            color: black;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;

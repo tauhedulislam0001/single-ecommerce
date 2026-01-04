@@ -5,6 +5,7 @@
     use App\Http\Controllers\AdminController;
     use App\Http\Controllers\Auth\ForgotPasswordController;
     use App\Http\Controllers\FrontendController;
+    use App\Http\Controllers\frontend\FrontendController as FrontendControllerV1;
     use App\Http\Controllers\Auth\LoginController;
     use App\Http\Controllers\MessageController;
     use App\Http\Controllers\CartController;
@@ -49,7 +50,7 @@
 
     Route::get('user/register', [FrontendController::class, 'register'])->name('register.form');
     Route::post('user/register', [FrontendController::class, 'registerSubmit'])->name('register.submit');
-   
+
     // Reset password
     Route::get('password/reset', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
@@ -63,6 +64,13 @@
     Route::get('login/{provider}/', [LoginController::class, 'redirect'])->name('login.redirect');
     Route::get('login/{provider}/callback/', [LoginController::class, 'Callback'])->name('login.callback');
 
+
+    // frontend
+    Route::prefix('v1')->group(function() {
+        Route::get('/', [FrontendControllerV1::class, 'home'])->name('home.v1');
+    });
+
+
     Route::get('/', [FrontendController::class, 'home'])->name('home');
 
 // Frontend Routes
@@ -72,6 +80,7 @@
     Route::post('/contact/message', [MessageController::class, 'store'])->name('contact.store');
     Route::get('product-detail/{slug}', [FrontendController::class, 'productDetail'])->name('product-detail');
     Route::post('/product/search', [FrontendController::class, 'productSearch'])->name('product.search');
+    Route::get('/search-suggestions', [FrontendController::class, 'searchSuggestions'])->name('product.search.suggestions');
     Route::get('/product-cat/{slug}', [FrontendController::class, 'productCat'])->name('product-cat');
     Route::get('/product-sub-cat/{slug}/{sub_slug}', [FrontendController::class, 'productSubCat'])->name('product-sub-cat');
     Route::get('/product-brand/{slug}', [FrontendController::class, 'productBrand'])->name('product-brand');

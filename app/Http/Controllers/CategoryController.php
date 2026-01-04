@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -48,7 +49,16 @@ class CategoryController extends Controller
 
         $slug = generateUniqueSlug($request->title, Category::class);
         $validatedData['slug'] = $slug;
+        $validatedData['added_by'] = Auth::guard('web')->user()->id;
         $validatedData['is_parent'] = $request->input('is_parent', 0);
+
+        // If the category has a parent, get the parent category name
+        if ($request->has('parent_id') && $request->parent_id) {
+            $parentCategory = Category::find($request->parent_id);
+            if ($parentCategory) {
+                $validatedData['parent_name'] = $parentCategory->title;
+            }
+        }
 
         $category = Category::create($validatedData);
 
@@ -107,6 +117,15 @@ class CategoryController extends Controller
         ]);
 
         $validatedData['is_parent'] = $request->input('is_parent', 0);
+        $validatedData['added_by'] = Auth::guard('web')->user()->id;
+
+        // If the category has a parent, get the parent category name and store it
+        if ($request->has('parent_id') && $request->parent_id) {
+            $parentCategory = Category::find($request->parent_id);
+            if ($parentCategory) {
+                $validatedData['parent_name'] = $parentCategory->title;
+            }
+        }
 
         $status = $category->update($validatedData);
 
