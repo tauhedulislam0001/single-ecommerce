@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 class Product extends Model
 {
-    protected $fillable = ['title', 'slug', 'summary', 'description', 'cat_id', 'cat_name', 'child_cat_id', 'child_cat_name', 'price', 'brand_id', 'brand_name', 'discount', 'status', 'photo', 'size', 'stock', 'is_featured', 'condition'];
+    protected $fillable = ['title', 'slug', 'summary', 'description', 'cat_id', 'cat_name', 'child_cat_id', 'child_cat_name', 'price', 'brand_id', 'brand_name', 'discount', 'status', 'photo', 'size', 'stock', 'is_featured', 'is_trending', 'condition'];
 
     public function cat_info()
     {

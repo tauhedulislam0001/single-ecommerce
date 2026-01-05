@@ -120,38 +120,45 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post=Post::findOrFail($id);
-         // return $request->all();
-         $this->validate($request,[
-            'title'=>'string|required',
-            'quote'=>'string|nullable',
-            'summary'=>'string|required',
-            'description'=>'string|nullable',
-            'photo'=>'string|nullable',
-            'tags'=>'nullable',
-            'added_by'=>'nullable',
-            'post_cat_id'=>'required',
-            'status'=>'required|in:active,inactive'
+        $post = Post::findOrFail($id);
+
+        $this->validate($request, [
+            'title' => 'string|required',
+            'quote' => 'string|nullable',
+            'summary' => 'string|required',
+            'description' => 'string|nullable',
+            'photo' => 'string|nullable',
+            'tags' => 'nullable',
+            'added_by' => 'nullable',
+            'post_cat_id' => 'required|exists:post_categories,id',
+            'status' => 'required|in:active,inactive'
         ]);
 
-        $data=$request->all();
-        $tags=$request->input('tags');
-        // return $tags;
-        if($tags){
-            $data['tags']=implode(',',$tags);
-        }
-        else{
-            $data['tags']='';
-        }
-        // return $data;
+        $data = $request->all();
 
-        $status=$post->fill($data)->save();
-        if($status){
-            request()->session()->flash('success','Post Successfully updated');
+        // Get the category title from post_categories table
+        $category = PostCategory::find($request->post_cat_id);
+        if ($category) {
+            $data['post_cat_name'] = $category->title;
         }
-        else{
-            request()->session()->flash('error','Please try again!!');
+
+        // Handle tags
+        $tags = $request->input('tags');
+        if ($tags) {
+            $data['tags'] = implode(',', $tags);
+        } else {
+            $data['tags'] = '';
         }
+
+        // Update the post
+        $status = $post->fill($data)->save();
+
+        if ($status) {
+            request()->session()->flash('success', 'Post Successfully updated');
+        } else {
+            request()->session()->flash('error', 'Please try again!!');
+        }
+
         return redirect()->route('post.index');
     }
 
@@ -164,9 +171,9 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post=Post::findOrFail($id);
-       
+
         $status=$post->delete();
-        
+
         if($status){
             request()->session()->flash('success','Post successfully deleted');
         }

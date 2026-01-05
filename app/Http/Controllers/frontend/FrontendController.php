@@ -30,51 +30,147 @@ class FrontendController extends Controller
 
     public function home()
     {
-        $featured = Product::where('status', 'active')->where('is_featured', 1)->orderBy('price', 'DESC')->limit(2)->get();
-        $posts = Post::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
-        $banners = Banner::where('status', 'active')->limit(3)->orderBy('id', 'DESC')->get();
+        // Fetch all data in optimized queries
+        $featured = Product::where('status', 'active')
+            ->where('is_featured', 1)
+            ->orderBy('price', 'DESC')
+            ->limit(2)
+            ->get();
 
-        // return $banner;
-        $products = Product::where('status', 'active')->orderBy('id', 'DESC')->get();
-        $categories = Category::where('status', 'active')->orderBy('title', 'ASC')->get();
-        $subcategories = Category::where('status', 'active')->where('is_parent', 0)->orderBy('title', 'ASC')->get();
+        $posts = Post::where('status', 'active')
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
 
-        // Get categories with their products for mega menu
-        $megaMenuCategories = Category::where('status', 'active')
-            ->where('is_parent', 1) // Assuming parent categories
-            ->where('is_megamenu', 1) // Assuming parent categories
+        $banners = Banner::where('status', 'active')
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
+
+        // Get all active products (for "All products" tab)
+        $allProducts = Product::where('status', 'active')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        // Get categories with product counts
+        $categories = Category::where('status', 'active')
             ->orderBy('title', 'ASC')
-            ->limit(3) // Limit to 3 categories for the 3 columns
-            ->get()
-            ->map(function ($category) {
-                // Load 3-4 products for each category
-                $category->products = Product::where('cat_id', $category->id)
-                    ->where('status', 'active')
-                    ->orderBy('id', 'DESC')
-                    ->limit(4)
-                    ->get();
-                return $category;
-            });
+            ->get();
 
-        // Get best seller products for the 4th column
+        // Get categories with product counts - optimized with single query
+        $category_count = Category::where('status', 'active')
+            ->where('is_parent', 1)
+            ->orderBy('title', 'ASC')
+            ->withCount(['products' => function($query) {
+                $query->where('status', 'active');
+            }])
+            ->get();
+
+        // Get parent categories for tabs
+        $categoriesForTabs = Category::where('status', 'active')
+            ->where('is_parent', 1)
+            ->orderBy('title', 'DESC')
+            ->get();
+
+        // ========== ADD THESE TRENDING PRODUCT QUERIES ==========
+
+        // 1. Get ALL trending products (is_trending = 1)
+        $allTrendingProducts = Product::where('status', 'active')
+            ->where('is_trending', 1)
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        // 2. Get trending products grouped by category
+        $trendingProductsByCategory = [];
+        foreach ($categoriesForTabs as $category) {
+            $trendingProductsByCategory[$category->title] = Product::where('status', 'active')
+                ->where('is_trending', 1)
+                ->where('cat_id', $category->id)
+                ->orderBy('id', 'DESC')
+                ->get();
+        }
+
+        // ======================================================
+
+        // Load ALL products for each category (for other sections if needed)
+        $productsByCategory = [];
+        foreach ($categoriesForTabs as $category) {
+            $productsByCategory[$category->title] = Product::where('status', 'active')
+                ->where('cat_id', $category->id)
+                ->orderBy('id', 'DESC')
+                ->get();
+        }
+
+        $subcategories = Category::where('status', 'active')
+            ->where('is_parent', 0)
+            ->orderBy('title', 'ASC')
+            ->get();
+
+        // Mega menu categories with eager loading
+        $megaMenuCategories = Category::where('status', 'active')
+            ->where('is_parent', 1)
+            ->where('is_megamenu', 1)
+            ->orderBy('title', 'ASC')
+            ->with(['products' => function($query) {
+                $query->where('status', 'active')
+                    ->orderBy('id', 'DESC')
+                    ->limit(4);
+            }])
+            ->get();
+
+        // Mega menu brands with eager loading
+        $megaMenuBrands = Brand::where('status', 'active')
+            ->orderBy('title', 'ASC')
+            ->limit(3)
+            ->with(['products' => function($query) {
+                $query->where('status', 'active')
+                    ->orderBy('id', 'DESC')
+                    ->limit(4);
+            }])
+            ->get();
+
+        // Get best seller products
+        $bestBrandSellerProducts = Product::where('status', 'active')
+            ->where('condition', 'hot')
+            ->orderBy('id', 'DESC')
+            ->limit(4)
+            ->get();
+
         $bestSellerProducts = Product::where('status', 'active')
             ->orderBy('id', 'DESC')
             ->limit(4)
             ->get();
 
+        $bestTrendingProducts = Product::where('status', 'active')
+            ->where('is_trending', 1)
+            ->orderBy('id', 'DESC')
+            ->limit(4)
+            ->get();
 
-        // return $category;
-        return view('frontend.v1.layouts.master')
-            ->with('featured', $featured)
-            ->with('posts', $posts)
-            ->with('banners', $banners)
-            ->with('product_lists', $products)
-            ->with('category_lists', $categories)
-            ->with('sub_category', $subcategories)
-            ->with('megaMenuCategories', $megaMenuCategories)
-            ->with('bestSellerProducts', $bestSellerProducts);
+        $single_blog = Post::where('status', 'active')
+            ->where('post_cat_name', 'frontsection')
+            ->orderBy('id', 'DESC')
+            ->first();
 
-        // return view('frontend.v1.layouts.master');
+        return view('frontend.v1.index', [
+            'featured' => $featured,
+            'posts' => $posts,
+            'banners' => $banners,
+            'allProducts' => $allProducts,
+            'categories' => $categories,
+            'category_count' => $category_count,
+            'productsByCategory' => $productsByCategory, // All products by category
+            'trendingProductsByCategory' => $trendingProductsByCategory, // Trending products by category
+            'categoriesForTabs' => $categoriesForTabs,
+            'allTrendingProducts' => $allTrendingProducts, // All trending products
+            'sub_category' => $subcategories,
+            'megaMenuCategories' => $megaMenuCategories,
+            'bestSellerProducts' => $bestSellerProducts,
+            'bestBrandSellerProducts' => $bestBrandSellerProducts,
+            'single_blog' => $single_blog,
+            'bestTrendingProducts' => $bestTrendingProducts,
+            'megaMenuBrands' => $megaMenuBrands
+        ]);
     }
 
     public function aboutUs()

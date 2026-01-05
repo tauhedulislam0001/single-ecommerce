@@ -6,11 +6,12 @@
     <h5 class="card-header">Edit Post</h5>
     <div class="card-body">
       <form method="post" action="{{route('post.update',$post->id)}}">
-        @csrf 
+        @csrf
         @method('PATCH')
+
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
-          <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{$post->title}}" class="form-control">
+          <label for="title" class="col-form-label">Title <span class="text-danger">*</span></label>
+          <textarea class="form-control" id="title" name="title">{{$post->title}}</textarea>
           @error('title')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -50,16 +51,16 @@
           </select>
         </div>
         {{-- {{$post->tags}} --}}
-        @php 
-                $post_tags=explode(',',$post->tags);
-                // dd($tags);
-              @endphp
+        @php
+            $post_tags=explode(',',$post->tags);
+        @endphp
+
         <div class="form-group">
           <label for="tags">Tag</label>
           <select name="tags[]" multiple  data-live-search="true" class="form-control selectpicker">
               <option value="">--Select any tag--</option>
               @foreach($tags as $key=>$data)
-              
+
               <option value="{{$data->title}}"  {{(( in_array( "$data->title",$post_tags ) ) ? 'selected' : '')}}>{{$data->title}}</option>
               @endforeach
           </select>
@@ -89,7 +90,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -123,11 +124,11 @@
     $('#lfm').filemanager('image');
 
     $(document).ready(function() {
-    $('#summary').summernote({
-      placeholder: "Write short description.....",
-        tabsize: 2,
-        height: 150
-    });
+        $('#summary').summernote({
+        placeholder: "Write short description.....",
+            tabsize: 2,
+            height: 150
+        });
     });
 
     $(document).ready(function() {
@@ -137,11 +138,20 @@
           height: 100
       });
     });
+
     $(document).ready(function() {
       $('#description').summernote({
         placeholder: "Write detail description.....",
           tabsize: 2,
           height: 150
+      });
+    });
+
+    $(document).ready(function() {
+      $('#title').summernote({
+        placeholder: "Write detail title.....",
+          tabsize: 2,
+          height: 80
       });
     });
 </script>

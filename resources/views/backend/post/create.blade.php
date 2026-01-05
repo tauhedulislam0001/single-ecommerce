@@ -7,9 +7,10 @@
     <div class="card-body">
       <form method="post" action="{{route('post.store')}}">
         {{csrf_field()}}
+
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
-          <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{old('title')}}" class="form-control">
+          <label for="title" class="col-form-label">Title <span class="text-danger">*</span></label>
+          <textarea class="form-control" id="title" name="title">{{old('title')}}</textarea>
           @error('title')
           <span class="text-danger">{{$message}}</span>
           @enderror
@@ -82,7 +83,7 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -133,6 +134,14 @@
 
     $(document).ready(function() {
       $('#quote').summernote({
+        placeholder: "Write detail Quote.....",
+          tabsize: 2,
+          height: 100
+      });
+    });
+
+    $(document).ready(function() {
+      $('#title').summernote({
         placeholder: "Write detail Quote.....",
           tabsize: 2,
           height: 100

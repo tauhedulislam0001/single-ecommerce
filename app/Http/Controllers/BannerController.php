@@ -38,7 +38,7 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|string|max:50',
+            'title' => 'required|string',
             'description' => 'nullable|string',
             'photo' => 'required|string',
             'status' => 'required|in:active,inactive',
@@ -46,6 +46,7 @@ class BannerController extends Controller
 
         $slug = $this->generateUniqueSlug($request->title);
         $validatedData['slug'] = $slug;
+        $validatedData['shop_link'] = $request->shop_link;
 
         $banner = Banner::create($validatedData);
 
@@ -94,11 +95,12 @@ class BannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         $validatedData = $request->validate([
-            'title' => 'required|string|max:50',
+            'title' => 'required|string',
             'description' => 'nullable|string',
             'photo' => 'required|string',
             'status' => 'required|in:active,inactive',
         ]);
+        $validatedData['shop_link'] = $request->shop_link;
 
         $status = $banner->update($validatedData);
 

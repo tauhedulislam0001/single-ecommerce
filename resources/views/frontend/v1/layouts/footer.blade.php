@@ -1,154 +1,151 @@
-
-	<!-- Start Footer Area -->
-	<footer class="footer">
-		<!-- Footer Top -->
-		<div class="footer-top section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-5 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer about">
-							<div class="logo">
-								<a href="index.html"><img src="{{asset('backend/img/logo2.png')}}" alt="#"></a>
-							</div>
-							@php
-								$settings=DB::table('settings')->get();
-							@endphp
-							<p class="text">@foreach($settings as $data) {{$data->short_des}} @endforeach</p>
-							<p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">@foreach($settings as $data) {{$data->phone}} @endforeach</a></span></p>
-						</div>
-						<!-- End Single Widget -->
-					</div>
-					<div class="col-lg-2 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer links">
-							<h4>Information</h4>
-							<ul>
-								<li><a href="{{route('about-us')}}">About Us</a></li>
-								<li><a href="#">Faq</a></li>
-								<li><a href="#">Terms & Conditions</a></li>
-								<li><a href="{{route('contact')}}">Contact Us</a></li>
-								<li><a href="#">Help</a></li>
-							</ul>
-						</div>
-						<!-- End Single Widget -->
-					</div>
-					<div class="col-lg-2 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer links">
-							<h4>Customer Service</h4>
-							<ul>
-								<li><a href="#">Payment Methods</a></li>
-								<li><a href="#">Money-back</a></li>
-								<li><a href="#">Returns</a></li>
-								<li><a href="#">Shipping</a></li>
-								<li><a href="#">Privacy Policy</a></li>
-							</ul>
-						</div>
-						<!-- End Single Widget -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Single Widget -->
-						<div class="single-footer social">
-							<h4>Get In Tuch</h4>
-							<!-- Single Widget -->
-							<div class="contact">
-								<ul>
-									<li>@foreach($settings as $data) {{$data->address}} @endforeach</li>
-									<li>@foreach($settings as $data) {{$data->email}} @endforeach</li>
-									<li>@foreach($settings as $data) {{$data->phone}} @endforeach</li>
-								</ul>
-							</div>
-							<!-- End Single Widget -->
-							<div class="sharethis-inline-follow-buttons"></div>
-						</div>
-						<!-- End Single Widget -->
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Footer Top -->
-		<div class="copyright">
-			<div class="container">
-				<div class="inner">
-					<div class="row">
-						<div class="col-lg-6 col-12">
-							<div class="left">
-								<p>Copyright © {{date('Y')}} <a href="https://github.com/Prajwal100" target="_blank">Prajwal Rai</a>  -  All Rights Reserved.</p>
-							</div>
-						</div>
-						<div class="col-lg-6 col-12">
-							<div class="right">
-								<img src="{{asset('backend/img/payments.png')}}" alt="#">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- /End Footer Area -->
- 
-	<!-- Jquery -->
-    <script src="{{asset('frontend/js/jquery.min.js')}}"></script>
-    <script src="{{asset('frontend/js/jquery-migrate-3.0.0.js')}}"></script>
-	<script src="{{asset('frontend/js/jquery-ui.min.js')}}"></script>
-	<!-- Popper JS -->
-	<script src="{{asset('frontend/js/popper.min.js')}}"></script>
-	<!-- Bootstrap JS -->
-	<script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-	<!-- Color JS -->
-	<script src="{{asset('frontend/js/colors.js')}}"></script>
-	<!-- Slicknav JS -->
-	<script src="{{asset('frontend/js/slicknav.min.js')}}"></script>
-	<!-- Owl Carousel JS -->
-	<script src="{{asset('frontend/js/owl-carousel.js')}}"></script>
-	<!-- Magnific Popup JS -->
-	<script src="{{asset('frontend/js/magnific-popup.js')}}"></script>
-	<!-- Waypoints JS -->
-	<script src="{{asset('frontend/js/waypoints.min.js')}}"></script>
-	<!-- Countdown JS -->
-	<script src="{{asset('frontend/js/finalcountdown.min.js')}}"></script>
-	<!-- Nice Select JS -->
-	<script src="{{asset('frontend/js/nicesellect.js')}}"></script>
-	<!-- Flex Slider JS -->
-	<script src="{{asset('frontend/js/flex-slider.js')}}"></script>
-	<!-- ScrollUp JS -->
-	<script src="{{asset('frontend/js/scrollup.js')}}"></script>
-	<!-- Onepage Nav JS -->
-	<script src="{{asset('frontend/js/onepage-nav.min.js')}}"></script>
-	{{-- Isotope --}}
-	<script src="{{asset('frontend/js/isotope/isotope.pkgd.min.js')}}"></script>
-	<!-- Easing JS -->
-	<script src="{{asset('frontend/js/easing.js')}}"></script>
-
-	<!-- Active JS -->
-	<script src="{{asset('frontend/js/active.js')}}"></script>
-
-	
-	@stack('scripts')
-	<script>
-		setTimeout(function(){
-		  $('.alert').slideUp();
-		},5000);
-		$(function() {
-		// ------------------------------------------------------- //
-		// Multi Level dropdowns
-		// ------------------------------------------------------ //
-			$("ul.dropdown-menu [data-toggle='dropdown']").on("click", function(event) {
-				event.preventDefault();
-				event.stopPropagation();
-
-				$(this).siblings().toggleClass("show");
-
-
-				if (!$(this).next().hasClass('show')) {
-				$(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-				}
-				$(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
-				$('.dropdown-submenu .show').removeClass("show");
-				});
-
-			});
-		});
-	  </script>
+<!-- Footer -->
+<footer id="footer" class="footer background-black md-pb-70">
+    <div class="footer-wrap wow fadeIn" data-wow-delay="0s">
+        <div class="footer-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="footer-infor">
+                            <div class="footer-logo">
+                                <a href="{{ route('home')}}">
+                                    <img src="{{ asset($settings->first()->logo) }}" alt="logo" class="logo" width="120" height="120">
+                                </a>
+                            </div>
+                            <ul>
+                                <li>
+                                    <p>Address: {{ $settings->first()->address }}</p>
+                                </li>
+                                <li>
+                                    <p>Email: <a href="#">{{ $settings->first()->email }}</a></p>
+                                </li>
+                                <li>
+                                    <p>Phone: <a href="#">{{ $settings->first()->phone }}</a></p>
+                                </li>
+                            </ul>
+                            <a href="contact-1.html" class="tf-btn btn-line">Get direction<i
+                                    class="icon icon-arrow1-top-left"></i></a>
+                            <ul class="tf-social-icon d-flex gap-10 style-white">
+                                <li><a href="#" class="box-icon w_34 round social-facebook social-line"><i
+                                            class="icon fs-14 icon-fb"></i></a></li>
+                                <li><a href="#" class="box-icon w_34 round social-twiter social-line"><i
+                                            class="icon fs-12 icon-Icon-x"></i></a></li>
+                                <li><a href="#" class="box-icon w_34 round social-instagram social-line"><i
+                                            class="icon fs-14 icon-instagram"></i></a></li>
+                                <li><a href="#" class="box-icon w_34 round social-tiktok social-line"><i
+                                            class="icon fs-14 icon-tiktok"></i></a></li>
+                                <li><a href="#" class="box-icon w_34 round social-pinterest social-line"><i
+                                            class="icon fs-14 icon-pinterest-1"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-12 footer-col-block">
+                        <div class="footer-heading footer-heading-desktop">
+                            <h6>Help</h6>
+                        </div>
+                        <div class="footer-heading footer-heading-moblie">
+                            <h6>Help</h6>
+                        </div>
+                        <ul class="footer-menu-list tf-collapse-content">
+                            <li>
+                                <a href="#" class="footer-menu_item">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer-menu_item"> Returns + Exchanges
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer-menu_item">Shipping</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer-menu_item">Terms &amp;
+                                    Conditions</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer-menu_item">FAQ’s</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer-menu_item">Compare</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer-menu_item">My Wishlist</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-12 footer-col-block">
+                        <div class="footer-heading footer-heading-desktop">
+                            <h6>About us</h6>
+                        </div>
+                        <div class="footer-heading footer-heading-moblie">
+                            <h6>About us</h6>
+                        </div>
+                        <ul class="footer-menu-list tf-collapse-content">
+                            <li>
+                                <a href="#" class="footer-menu_item">Our Story</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer-menu_item">Visit Our Store</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer-menu_item">Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer-menu_item">Account</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xl-3 col-md-6 col-12">
+                        <div class="footer-newsletter footer-col-block">
+                            <div class="footer-heading footer-heading-desktop">
+                                <h6>Sign Up for Email</h6>
+                            </div>
+                            <div class="footer-heading footer-heading-moblie">
+                                <h6>Sign Up for Email</h6>
+                            </div>
+                            <div class="tf-collapse-content">
+                                <div class="footer-menu_item">Sign up to get first dibs on new arrivals, sales,
+                                    exclusive content, events and more!</div>
+                                <form class="form-newsletter" id="subscribe-form" action="#" method="post"
+                                    accept-charset="utf-8" data-mailchimp="true">
+                                    <div id="subscribe-content">
+                                        <fieldset class="email">
+                                            <input type="email" name="email-form" id="subscribe-email"
+                                                placeholder="Enter your email...." tabindex="0"
+                                                aria-required="true">
+                                        </fieldset>
+                                        <div class="button-submit">
+                                            <button id="subscribe-button"
+                                                class="tf-btn btn-sm radius-3 btn-fill btn-icon animate-hover-btn"
+                                                type="button">Subscribe<i
+                                                    class="icon icon-arrow1-top-left"></i></button>
+                                        </div>
+                                    </div>
+                                    <div id="subscribe-msg"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div
+                            class="footer-bottom-wrap d-flex gap-20 flex-wrap justify-content-between align-items-center">
+                            <div class="footer-menu_item">© 2025 Ecomus Store. All Rights Reserved</div>
+                            <div class="tf-payment">
+                                <img src={{ asset("frontend/asset/images/payments/visa.png") }} alt="">
+                                <img src={{ asset("frontend/asset/images/payments/img-1.png") }} alt="">
+                                <img src={{ asset("frontend/asset/images/payments/img-2.png") }} alt="">
+                                <img src={{ asset("frontend/asset/images/payments/img-3.png") }} alt="">
+                                <img src={{ asset("frontend/asset/images/payments/img-4.png") }} alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- /Footer -->

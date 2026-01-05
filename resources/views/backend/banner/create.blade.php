@@ -9,12 +9,13 @@
     <div class="card-body">
       <form method="post" action="{{route('banner.store')}}">
         {{csrf_field()}}
+
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
-        <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{old('title')}}" class="form-control">
-        @error('title')
-        <span class="text-danger">{{$message}}</span>
-        @enderror
+          <label for="inputDesc" class="col-form-label">Title</label>
+          <textarea class="form-control" id="title" name="title">{{old('title')}}</textarea>
+          @error('description')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
         </div>
 
         <div class="form-group">
@@ -40,7 +41,15 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
+        <div class="form-group">
+          <label for="status" class="col-form-label">Add Link</label>
+          <input type="text" name="shop_link" class="form-control" value="{{old('shop_link')}}" placeholder="Enter shop link">
+          @error('shop_link')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -76,6 +85,11 @@
         tabsize: 2,
         height: 150
     });
+        $('#title').summernote({
+        placeholder: "Write short title.....",
+            tabsize: 2,
+            height: 150
+        });
     });
 </script>
 @endpush

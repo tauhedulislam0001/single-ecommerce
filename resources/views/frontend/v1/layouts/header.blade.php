@@ -61,7 +61,7 @@
                     </a>
                 </div>
                 <div class="col-md-4 col-6">
-                    <a href="index.html" class="logo-header">
+                    <a href="{{ route('home') }}" class="logo-header">
                         <img src="{{ asset($settings->first()->logo) }}" alt="logo" class="logo">
                     </a>
                 </div>
@@ -116,7 +116,7 @@
                         </a>
                         <div class="list-categories-inner toolbar-shop-mobile">
                             <ul class="nav-ul-mb" id="wrapper-menu-navigation">
-                                @foreach ($category_lists as $category)
+                                @foreach ($categories as $category)
                                     @if ($category->is_parent == 1)
                                         <!-- Show expandable menu for PARENT categories (they have children) -->
                                         <li class="nav-mb-item">
@@ -323,6 +323,150 @@
                                     </div>
                                 </div>
                             </li>
+                            <li class="menu-item">
+                                <a href="#" class="item-link">Brands<i class="icon icon-arrow-down"></i></a>
+                                <div class="sub-menu mega-menu">
+                                    <div class="container">
+                                        <div class="row">
+                                            <!-- All Products Link Column -->
+                                            <div class="col-lg-2">
+                                                <div class="mega-menu-item">
+                                                    <div class="menu-heading">Shop By</div>
+                                                    <ul class="menu-list">
+                                                        <li>
+                                                            <a href="" class="menu-link-text link">
+                                                                <strong>All Products</strong>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            <!-- Dynamic Brands Columns (3 columns) -->
+                                            @foreach ($megaMenuBrands->chunk(ceil($megaMenuBrands->count() / 3)) as $chunkIndex => $brandsChunk)
+                                                <div class="col-lg-2">
+                                                    @foreach ($brandsChunk as $brand)
+                                                        <div class="mega-menu-item">
+                                                            <div class="menu-heading">
+                                                                <a href="" class="link">
+                                                                    {{ $brand->title }} <!-- Brand name -->
+                                                                </a>
+                                                            </div>
+                                                            <ul class="menu-list">
+                                                                @foreach ($brand->products as $product)
+                                                                    <li>
+                                                                        <a href="" class="menu-link-text link">
+                                                                            {{ $product->title }}
+                                                                        </a>
+                                                                    </li>
+                                                                @endforeach
+                                                                @if ($brand->products->count() < 4)
+                                                                    @for ($i = $brand->products->count(); $i < 4; $i++)
+                                                                        <li>&nbsp;</li> <!-- Empty li for alignment -->
+                                                                    @endfor
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+
+                                            <!-- Best Seller Products Column -->
+                                            <div class="col-lg-4">
+                                                <div class="menu-heading">Hot Product</div>
+                                                <div class="hover-sw-nav hover-sw-2">
+                                                    <div dir="ltr" class="swiper tf-product-header">
+                                                        <div class="swiper-wrapper">
+                                                            @foreach ($bestBrandSellerProducts as $product)
+                                                                <div class="swiper-slide" lazy="true">
+                                                                    <div class="card-product">
+                                                                        <div class="card-product-wrapper">
+                                                                            <a href="" class="product-img">
+                                                                                @if ($product->photo)
+                                                                                    <img class="lazyload img-product"
+                                                                                        data-src="{{ asset($product->photo) }}"
+                                                                                        src="{{ asset($product->photo) }}"
+                                                                                        alt="{{ $product->title }}">
+                                                                                @else
+                                                                                    <img class="lazyload img-product"
+                                                                                        data-src="{{ asset('frontend/asset/images/products/default.jpg') }}"
+                                                                                        src="{{ asset('frontend/asset/images/products/default.jpg') }}"
+                                                                                        alt="{{ $product->title }}">
+                                                                                @endif
+                                                                            </a>
+                                                                            <div class="list-product-btn absolute-2">
+                                                                                <a href="#quick_add"
+                                                                                data-bs-toggle="modal"
+                                                                                class="box-icon bg_white quick-add tf-btn-loading">
+                                                                                    <span class="icon icon-bag"></span>
+                                                                                    <span class="tooltip">Quick
+                                                                                        Add</span>
+                                                                                </a>
+                                                                                <a href="#"
+                                                                                class="box-icon bg_white wishlist btn-icon-action">
+                                                                                    <span class="icon icon-heart"></span>
+                                                                                    <span class="tooltip">Add to
+                                                                                        Wishlist</span>
+                                                                                    <span class="icon icon-delete"></span>
+                                                                                </a>
+                                                                                <a href="#compare"
+                                                                                data-bs-toggle="offcanvas"
+                                                                                aria-controls="offcanvasLeft"
+                                                                                class="box-icon bg_white compare btn-icon-action">
+                                                                                    <span class="icon icon-compare"></span>
+                                                                                    <span class="tooltip">Add to
+                                                                                        Compare</span>
+                                                                                    <span class="icon icon-check"></span>
+                                                                                </a>
+                                                                                <a href="#quick_view"
+                                                                                data-bs-toggle="modal"
+                                                                                class="box-icon bg_white quickview tf-btn-loading">
+                                                                                    <span class="icon icon-view"></span>
+                                                                                    <span class="tooltip">Quick
+                                                                                        View</span>
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="card-product-info">
+                                                                            <a href="" class="title link">
+                                                                                {{ $product->title }}
+                                                                            </a>
+                                                                            <span class="price">
+                                                                                @if ($product->discount)
+                                                                                    <del>${{ number_format($product->price, 2) }}</del>
+                                                                                    ${{ number_format($product->price - $product->discount, 2) }}
+                                                                                @else
+                                                                                    ${{ number_format($product->price, 2) }}
+                                                                                @endif
+                                                                            </span>
+                                                                            @if ($product->size)
+                                                                                <div class="size-list">
+                                                                                    @foreach (explode(',', $product->size) as $size)
+                                                                                        <span>{{ trim($size) }}</span>
+                                                                                    @endforeach
+                                                                                </div>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="nav-sw nav-next-slider nav-next-product-header box-icon w_46 round">
+                                                        <span class="icon icon-arrow-left"></span>
+                                                    </div>
+                                                    <div
+                                                        class="nav-sw nav-prev-slider nav-prev-product-header box-icon w_46 round">
+                                                        <span class="icon icon-arrow-right"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="menu-item {{Request::path()=='contact' ? 'active' : ''}}"><a href="{{route('contact')}}" class="item-link">Contact Us</a></li>
                             <li class="menu-item position-relative">
                                 <a href="#" class="item-link">Pages<i class="icon icon-arrow-down"></i></a>
                                 <div class="sub-menu submenu-default">

@@ -6,14 +6,15 @@
     <h5 class="card-header">Edit Banner</h5>
     <div class="card-body">
       <form method="post" action="{{route('banner.update',$banner->id)}}">
-        @csrf 
+        @csrf
         @method('PATCH')
+
         <div class="form-group">
-          <label for="inputTitle" class="col-form-label">Title <span class="text-danger">*</span></label>
-        <input id="inputTitle" type="text" name="title" placeholder="Enter title"  value="{{$banner->title}}" class="form-control">
-        @error('title')
-        <span class="text-danger">{{$message}}</span>
-        @enderror
+          <label for="inputDesc" class="col-form-label">Title</label>
+          <textarea class="form-control" id="title" name="title">{{$banner->title}}</textarea>
+          @error('title')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
         </div>
 
         <div class="form-group">
@@ -39,7 +40,15 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        
+
+        <div class="form-group">
+          <label for="status" class="col-form-label">Add Link </label>
+          <input type="text" name="shop_link" class="form-control" value="{{$banner->shop_link}}" placeholder="Enter shop link">
+          @error('shop_link')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
+        </div>
+
         <div class="form-group">
           <label for="status" class="col-form-label">Status <span class="text-danger">*</span></label>
           <select name="status" class="form-control">
@@ -69,11 +78,16 @@
     $('#lfm').filemanager('image');
 
     $(document).ready(function() {
-    $('#description').summernote({
-      placeholder: "Write short description.....",
-        tabsize: 2,
-        height: 150
-    });
+        $('#description').summernote({
+        placeholder: "Write short description.....",
+            tabsize: 2,
+            height: 150
+        });
+        $('#title').summernote({
+        placeholder: "Write short title.....",
+            tabsize: 2,
+            height: 150
+        });
     });
 </script>
 @endpush

@@ -62,6 +62,7 @@ class ProductController extends Controller
         $slug = generateUniqueSlug($request->title, Product::class);
         $validatedData['slug'] = $slug;
         $validatedData['is_featured'] = $request->input('is_featured', 0);
+        $validatedData['is_trending'] = $request->input('is_trending', 0);
 
         if ($request->has('size')) {
             $validatedData['size'] = implode(',', $request->input('size'));
@@ -119,6 +120,11 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
 
+        // Debug: See what's coming in the request
+        \Log::info('Request data:', $request->all());
+        \Log::info('is_trending in request: ' . ($request->has('is_trending') ? 'YES' : 'NO'));
+        \Log::info('is_trending value: ' . $request->input('is_trending', 'NOT SET'));
+
         $validatedData = $request->validate([
             'title' => 'required|string',
             'summary' => 'required|string',
@@ -128,7 +134,7 @@ class ProductController extends Controller
             'stock' => 'required|numeric',
             'cat_id' => 'required|exists:categories,id',
             'child_cat_id' => 'nullable|exists:categories,id',
-            'is_featured' => 'sometimes|in:1',
+            'is_featured' => 'nullable',
             'brand_id' => 'nullable|exists:brands,id',
             'status' => 'required|in:active,inactive',
             'condition' => 'required|in:default,new,hot',
@@ -136,7 +142,11 @@ class ProductController extends Controller
             'discount' => 'nullable|numeric',
         ]);
 
-        $validatedData['is_featured'] = $request->input('is_featured', 0);
+        // Explicitly set checkbox values
+        $validatedData['is_featured'] = $request->input('is_featured', 0) == '1' ? 1 : 0;
+        $validatedData['is_trending'] = $request->input('is_trending', 0) == '1' ? 1 : 0;
+
+        \Log::info('After processing - is_trending: ' . $validatedData['is_trending']);
 
         if ($request->has('size')) {
             $validatedData['size'] = implode(',', $request->input('size'));
@@ -144,9 +154,10 @@ class ProductController extends Controller
             $validatedData['size'] = '';
         }
 
-        // FILL and SAVE instead of UPDATE
         $product->fill($validatedData);
-        $status = $product->save(); // This triggers the saving/updating events
+        $status = $product->save();
+
+        \Log::info('Saved product - is_trending: ' . $product->is_trending);
 
         $message = $status
             ? 'Product Successfully updated'
