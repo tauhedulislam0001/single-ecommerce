@@ -50,6 +50,7 @@ class FrontendController extends Controller
         // Get all active products (for "All products" tab)
         $allProducts = Product::where('status', 'active')
             ->orderBy('id', 'DESC')
+            ->limit(14)
             ->get();
 
         // Get categories with product counts
@@ -136,6 +137,13 @@ class FrontendController extends Controller
             ->limit(4)
             ->get();
 
+        // Get best seller products
+        $hotProducts = Product::where('status', 'active')
+            ->where('condition', 'hot')
+            ->orderBy('id', 'DESC')
+            ->limit(12)
+            ->get();
+
         $bestSellerProducts = Product::where('status', 'active')
             ->orderBy('id', 'DESC')
             ->limit(4)
@@ -152,6 +160,39 @@ class FrontendController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
+        // 1. Get ALL new condition products
+        $allNewProducts = Product::where('status', 'active')
+            ->where('condition', 'new')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        // 2. Get new products grouped by category
+        $newProductsByCategory = [];
+        foreach ($categoriesForTabs as $category) {
+            $newProductsByCategory[$category->title] = Product::where('status', 'active')
+                ->where('condition', 'new')
+                ->where('cat_id', $category->id)
+                ->orderBy('id', 'DESC')
+                ->get();
+        }
+
+        // 3. Get ALL default condition products
+        $allDefaultProducts = Product::where('status', 'active')
+            ->where('condition', 'default')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        // 4. Get default products grouped by category
+        $defaultProductsByCategory = [];
+        foreach ($categoriesForTabs as $category) {
+            $defaultProductsByCategory[$category->title] = Product::where('status', 'active')
+                ->where('condition', 'default')
+                ->where('cat_id', $category->id)
+                ->orderBy('id', 'DESC')
+                ->get();
+        }
+
+
         return view('frontend.v1.index', [
             'featured' => $featured,
             'posts' => $posts,
@@ -167,9 +208,16 @@ class FrontendController extends Controller
             'megaMenuCategories' => $megaMenuCategories,
             'bestSellerProducts' => $bestSellerProducts,
             'bestBrandSellerProducts' => $bestBrandSellerProducts,
+            'hotProducts' => $hotProducts,
             'single_blog' => $single_blog,
             'bestTrendingProducts' => $bestTrendingProducts,
-            'megaMenuBrands' => $megaMenuBrands
+            'megaMenuBrands' => $megaMenuBrands,
+
+            // Add new parameters
+            'allNewProducts' => $allNewProducts,
+            'newProductsByCategory' => $newProductsByCategory,
+            'allDefaultProducts' => $allDefaultProducts,
+            'defaultProductsByCategory' => $defaultProductsByCategory,
         ]);
     }
 
