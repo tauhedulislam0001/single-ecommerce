@@ -1701,6 +1701,7 @@
     <script src={{ asset("frontend/asset/js/count-down.js") }}></script>
     <script src={{ asset("frontend/asset/js/wow.min.js") }}></script>
     <script src={{ asset("frontend/asset/js/magnific-popup.min.js") }}></script>
+    <script src={{ asset("frontend/asset/js/nouislider.min.js") }}></script>
     <script src={{ asset("frontend/asset/js/multiple-modal.js") }}></script>
     <script src={{ asset("frontend/asset/js/main.js") }}></script>
     <script src={{ asset("frontend/asset/js/helper.js") }}></script>

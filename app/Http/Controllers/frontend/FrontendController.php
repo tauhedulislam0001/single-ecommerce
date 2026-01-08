@@ -11,6 +11,7 @@ use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\Cart;
 use App\Models\Brand;
+use App\Models\Settings;
 use App\User;
 use Auth;
 use Session;
@@ -223,7 +224,8 @@ class FrontendController extends Controller
 
     public function aboutUs()
     {
-        return view('frontend.pages.about-us');
+        $settings=Settings::get();
+        return view('frontend.v1.pages.about-us')->with('settings', $settings);
     }
 
     public function contact()
@@ -332,7 +334,7 @@ class FrontendController extends Controller
         // Sort by name , price, category
 
 
-        return view('frontend.pages.product-lists')->with('products', $products)->with('recent_products', $recent_products);
+        return view('frontend.v1.pages.product-lists')->with('products', $products)->with('recent_products', $recent_products);
     }
     public function productFilter(Request $request)
     {

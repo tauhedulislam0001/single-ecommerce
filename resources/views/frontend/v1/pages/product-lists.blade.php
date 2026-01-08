@@ -1,448 +1,651 @@
-@extends('frontend.layouts.master')
+@extends('frontend.v1.layouts.master')
 
 @section('title','E-SHOP || PRODUCT PAGE')
 
 @section('main-content')
-	
-		<!-- Breadcrumbs -->
-		<div class="breadcrumbs">
-			<div class="container">
-				<div class="row">
-					<div class="col-12">
-						<div class="bread-inner">
-							<ul class="bread-list">
-								<li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-								<li class="active"><a href="javascript:void(0);">Shop List</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Breadcrumbs -->
-		<form action="{{route('shop.filter')}}" method="POST">
-		@csrf
-			<!-- Product Style 1 -->
-			<section class="product-area shop-sidebar shop-list shop section">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-3 col-md-4 col-12">
-							<div class="shop-sidebar">
-                                <!-- Single Widget -->
-                                <div class="single-widget category">
-                                    <h3 class="title">Categories</h3>
-                                    <ul class="categor-list">
-										@php
-											// $category = new Category();
-											$menu=App\Models\Category::getAllParentWithChild();
-										@endphp
-										@if($menu)
-										<li>
-											@foreach($menu as $cat_info)
-													@if($cat_info->child_cat->count()>0)
-														<li><a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a>
-															<ul>
-																@foreach($cat_info->child_cat as $sub_menu)
-																	<li><a href="{{route('product-sub-cat',[$cat_info->slug,$sub_menu->slug])}}">{{$sub_menu->title}}</a></li>
-																@endforeach
-															</ul>
-														</li>
-													@else
-														<li><a href="{{route('product-cat',$cat_info->slug)}}">{{$cat_info->title}}</a></li>
-													@endif
-											@endforeach
-										</li>
-										@endif
-                                        {{-- @foreach(Helper::productCategoryList('products') as $cat)
-                                            @if($cat->is_parent==1)
-												<li><a href="{{route('product-cat',$cat->slug)}}">{{$cat->title}}</a></li>
-											@endif
-                                        @endforeach --}}
-                                    </ul>
+
+<!-- page-title -->
+<div class="tf-page-title">
+    <div class="container-full">
+        <div class="row">
+            <div class="col-12">
+                <div class="heading text-center">All Product List</div>
+                <p class="text-center text-2 text_black-2 mt_5">Shop through our latest selection of Fashion</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /page-title -->
+
+<section class="flat-spacing-1">
+    <div class="container">
+        <div class="tf-shop-control grid-3 align-items-center">
+            <div></div>
+            <ul class="tf-control-layout d-flex justify-content-center">
+                <li class="tf-view-layout-switch sw-layout-list list-layout" data-value-layout="list">
+                    <div class="item"><span class="icon icon-list"></span></div>
+                </li>
+                <li class="tf-view-layout-switch sw-layout-2" data-value-layout="grid-2">
+                    <div class="item"><span class="icon icon-grid-2"></span></div>
+                </li>
+                <li class="tf-view-layout-switch sw-layout-3 active" data-value-layout="grid-3">
+                    <div class="item"><span class="icon icon-grid-3"></span></div>
+                </li>
+                <li class="tf-view-layout-switch sw-layout-4" data-value-layout="grid-4">
+                    <div class="item"><span class="icon icon-grid-4"></span></div>
+                </li>
+            </ul>
+            <div class="tf-control-sorting d-flex justify-content-end">
+                <form action="{{route('shop.filter')}}" method="POST" id="sortForm">
+                    @csrf
+                    <select class="form-select" name="sortBy" onchange="this.form.submit();" style="width: 200px;">
+                        <option value="">Sort By: Featured</option>
+                        <option value="title" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='title') selected @endif>Name (A-Z)</option>
+                        <option value="price" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='price') selected @endif>Price (Low to High)</option>
+                        <option value="category" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='category') selected @endif>Category</option>
+                        <option value="brand" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='brand') selected @endif>Brand</option>
+                    </select>
+                    <input type="hidden" name="price_range" value="@if(!empty($_GET['price'])){{$_GET['price']}}@endif">
+                    <input type="hidden" name="show" value="@if(!empty($_GET['show'])){{$_GET['show']}}@endif">
+                </form>
+            </div>
+        </div>
+
+        <div class="tf-row-flex">
+            <!-- Sidebar Filter -->
+            <div class="tf-shop-sidebar wrap-sidebar-mobile">
+                <div class="widget-facet wd-categories">
+                    <div class="facet-title" data-bs-target="#categories" data-bs-toggle="collapse"
+                        aria-expanded="true" aria-controls="categories">
+                        <span>Product categories</span>
+                        <span class="icon icon-arrow-up"></span>
+                    </div>
+                    <div id="categories" class="collapse show">
+                        <ul class="list-categoris current-scrollbar mb_36">
+                            @php
+                                $menu=App\Models\Category::getAllParentWithChild();
+                            @endphp
+                            @if($menu)
+                                @foreach($menu as $cat_info)
+                                    @if($cat_info->child_cat->count()>0)
+                                        <li class="cate-item">
+                                            <a href="{{route('product-cat',$cat_info->slug)}}">
+                                                <span>{{$cat_info->title}}</span>
+                                            </a>
+                                            <ul style="padding-left: 15px;">
+                                                @foreach($cat_info->child_cat as $sub_menu)
+                                                    <li class="cate-item">
+                                                        <a href="{{route('product-sub-cat',[$cat_info->slug,$sub_menu->slug])}}">
+                                                            <span>{{$sub_menu->title}}</span>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @else
+                                        <li class="cate-item">
+                                            <a href="{{route('product-cat',$cat_info->slug)}}">
+                                                <span>{{$cat_info->title}}</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Price Filter -->
+                <form action="{{route('shop.filter')}}" method="POST" id="priceFilterForm">
+                    @csrf
+                    <div class="widget-facet wrap-price">
+                        <div class="facet-title" data-bs-target="#price" data-bs-toggle="collapse"
+                            aria-expanded="true" aria-controls="price">
+                            <span>Shop by Price</span>
+                            <span class="icon icon-arrow-up"></span>
+                        </div>
+                        <div id="price" class="collapse show">
+                            <div class="widget-price filter-price p-3">
+                                @php
+                                    $max=DB::table('products')->max('price') ?? 1000;
+                                    $min=DB::table('products')->min('price') ?? 0;
+                                @endphp
+
+                                <div id="slider-range" class="mb-3"></div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <label class="small">Price Range:</label>
+                                        <div class="price-display">
+                                            <span id="amount"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!--/ End Single Widget -->
-                                <!-- Shop By Price -->
-								<div class="single-widget range">
-									<h3 class="title">Shop by Price</h3>
-									<div class="price-filter">
-										<div class="price-filter-inner">
-											{{-- <div id="slider-range" data-min="10" data-max="2000" data-currency="%"></div>
-												<div class="price_slider_amount">
-												<div class="label-input">
-													<span>Range:</span>
-													<input type="text" id="amount" name="price_range" value='@if(!empty($_GET['price'])) {{$_GET['price']}} @endif' placeholder="Add Your Price"/>
-												</div>
-											</div> --}}
-											@php
-												$max=DB::table('products')->max('price');
-												// dd($max);
-											@endphp
-											<div id="slider-range" data-min="0" data-max="{{$max}}"></div>
-											<div class="product_filter">
-											<button type="submit" class="filter_button">Filter</button>
-											<div class="label-input">
-												<span>Range:</span>
-												<input style="" type="text" id="amount" readonly/>
-												<input type="hidden" name="price_range" id="price_range" value="@if(!empty($_GET['price'])){{$_GET['price']}}@endif"/>
-											</div>
-											</div>
-										</div>
-									</div>
-									{{-- <ul class="check-box-list">
-										<li>
-											<label class="checkbox-inline" for="1"><input name="news" id="1" type="checkbox">$20 - $50<span class="count">(3)</span></label>
-										</li>
-										<li>
-											<label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">$50 - $100<span class="count">(5)</span></label>
-										</li>
-										<li>
-											<label class="checkbox-inline" for="3"><input name="news" id="3" type="checkbox">$100 - $250<span class="count">(8)</span></label>
-										</li>
-									</ul> --}}
-								</div>
-								<!--/ End Shop By Price -->
-                                <!-- Single Widget -->
-                                <div class="single-widget recent-post">
-                                    <h3 class="title">Recent post</h3>
-                                    {{-- {{dd($recent_products)}} --}}
-                                    @foreach($recent_products as $product)
-                                        <!-- Single Post -->
-                                        @php 
-                                            $photo=explode(',',$product->photo);
-                                        @endphp
-                                        <div class="single-post first">
-                                            <div class="image">
-                                                <img src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                            </div>
-                                            <div class="content">
-                                                <h5><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h5>
+
+                                <input type="hidden" name="price_range" id="price_range" value="@if(!empty($_GET['price'])){{$_GET['price']}}@else{{$min}}-{{$max}}@endif"/>
+                                <input type="hidden" name="sortBy" value="@if(!empty($_GET['sortBy'])){{$_GET['sortBy']}}@endif">
+                                <input type="hidden" name="show" value="@if(!empty($_GET['show'])){{$_GET['show']}}@endif">
+
+                                <button type="submit" class="btn btn-primary w-100 mt-3">Apply Filter</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Brand Filter -->
+                <div class="widget-facet">
+                    <div class="facet-title" data-bs-target="#brand" data-bs-toggle="collapse"
+                        aria-expanded="true" aria-controls="brand">
+                        <span>Brands</span>
+                        <span class="icon icon-arrow-up"></span>
+                    </div>
+                    <div id="brand" class="collapse show">
+                        <ul class="list-categoris current-scrollbar mb_36">
+                            @php
+                                $brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
+                            @endphp
+                            @foreach($brands as $brand)
+                                <li class="cate-item">
+                                    <a href="{{route('product-brand',$brand->slug)}}">
+                                        <span>{{$brand->title}}</span>
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Recent Products -->
+                <div class="widget-facet">
+                    <div class="facet-title" data-bs-target="#recent" data-bs-toggle="collapse"
+                        aria-expanded="true" aria-controls="recent">
+                        <span>Recent Products</span>
+                        <span class="icon icon-arrow-up"></span>
+                    </div>
+                    <div id="recent" class="collapse show">
+                        <div class="current-scrollbar mb_36">
+                            @foreach($recent_products as $product)
+                                @php
+                                    $photo=explode(',',$product->photo);
+                                    $org=($product->price-($product->price*$product->discount)/100);
+                                @endphp
+                                <div class="d-flex gap-2 mb-3">
+                                    <div class="img-style">
+                                        <img src="{{$photo[0]}}" alt="{{$product->title}}" style="width: 80px; height: 80px; object-fit: cover;">
+                                    </div>
+                                    <div class="content">
+                                        <a href="{{route('product-detail',$product->slug)}}" class="link">{{Str::limit($product->title, 30)}}</a>
+                                        <p class="price mb-0">
+                                            @if($product->discount > 0)
+                                                <del class="text-muted small">${{number_format($product->price,2)}}</del>
+                                            @endif
+                                            <span class="fw-bold">${{number_format($org,2)}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="tf-shop-content">
+                <div class="grid-layout wrapper-shop" data-grid="grid-3">
+                    @if(count($products))
+                        @foreach($products as $product)
+                            @php
+                                $photo=explode(',',$product->photo);
+                                $after_discount=($product->price-($product->price*$product->discount)/100);
+                            @endphp
+                            <div class="card-product">
+                                <div class="card-product-wrapper">
+                                    <a href="{{route('product-detail',$product->slug)}}" class="product-img">
+                                        <img class="lazyload img-product" data-src="{{$photo[0]}}" src="{{$photo[0]}}" alt="{{$product->title}}">
+                                        @if(isset($photo[1]))
+                                            <img class="lazyload img-hover" data-src="{{$photo[1]}}" src="{{$photo[1]}}" alt="{{$product->title}}">
+                                        @endif
+                                    </a>
+                                    <div class="list-product-btn">
+                                        <a href="{{route('add-to-cart',$product->slug)}}" class="box-icon bg_white quick-add tf-btn-loading">
+                                            <span class="icon icon-bag"></span>
+                                            <span class="tooltip">Add to Cart</span>
+                                        </a>
+                                        <a href="{{route('add-to-wishlist',$product->slug)}}" class="box-icon bg_white wishlist btn-icon-action">
+                                            <span class="icon icon-heart"></span>
+                                            <span class="tooltip">Add to Wishlist</span>
+                                        </a>
+                                        <a href="#quick_view_{{$product->id}}" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading">
+                                            <span class="icon icon-view"></span>
+                                            <span class="tooltip">Quick View</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="card-product-info">
+                                    <a href="{{route('product-detail',$product->slug)}}" class="title link">{{$product->title}}</a>
+                                    <span class="price">
+                                        @if($product->discount > 0)
+                                            <span class="old-price">${{number_format($product->price,2)}}</span>
+                                        @endif
+                                        <span class="new-price">${{number_format($after_discount,2)}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="col-12">
+                            <h4 class="text-warning text-center" style="margin:100px auto;">There are no products.</h4>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Pagination -->
+                @if(count($products))
+                    <ul class="tf-pagination-list tf-pagination-wrap mt-4">
+                        {{$products->appends($_GET)->links()}}
+                    </ul>
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick View Modals -->
+@if($products)
+    @foreach($products as $product)
+        <div class="modal fade" id="quick_view_{{$product->id}}" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{$product->title}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="product-gallery">
+                                    @php
+                                        $photo=explode(',',$product->photo);
+                                    @endphp
+                                    <div id="carousel{{$product->id}}" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                            @foreach($photo as $key => $data)
+                                                <div class="carousel-item @if($key == 0) active @endif">
+                                                    <img src="{{$data}}" class="d-block w-100" alt="{{$product->title}}">
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        @if(count($photo) > 1)
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{$product->id}}" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carousel{{$product->id}}" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="quickview-content p-4">
+                                    <div class="quickview-ratting-review mb-3">
+                                        <div class="quickview-ratting-wrap">
+                                            <div class="quickview-ratting">
                                                 @php
-                                                    $org=($product->price-($product->price*$product->discount)/100);
+                                                    $rate=DB::table('product_reviews')->where('product_id',$product->id)->avg('rate');
+                                                    $rate_count=DB::table('product_reviews')->where('product_id',$product->id)->count();
                                                 @endphp
-                                                <p class="price"><del class="text-muted">${{number_format($product->price,2)}}</del>   ${{number_format($org,2)}}  </p>                                                
+                                                @for($i=1; $i<=5; $i++)
+                                                    @if($rate>=$i)
+                                                        <i class="yellow fa fa-star"></i>
+                                                    @else
+                                                        <i class="fa fa-star"></i>
+                                                    @endif
+                                                @endfor
+                                            </div>
+                                            <a href="#"> ({{$rate_count}} customer review)</a>
+                                        </div>
+                                        <div class="quickview-stock">
+                                            @if($product->stock >0)
+                                                <span class="badge bg-success"><i class="fa fa-check-circle-o"></i> {{$product->stock}} in stock</span>
+                                            @else
+                                                <span class="badge bg-danger"><i class="fa fa-times-circle-o"></i> Out of stock</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    @php
+                                        $after_discount=($product->price-($product->price*$product->discount)/100);
+                                    @endphp
+                                    <h3 class="mb-3">
+                                        @if($product->discount > 0)
+                                            <del class="text-muted">${{number_format($product->price,2)}}</del>
+                                        @endif
+                                        <span class="text-primary">${{number_format($after_discount,2)}}</span>
+                                    </h3>
+                                    <div class="quickview-peragraph mb-3">
+                                        <p>{!! html_entity_decode($product->summary) !!}</p>
+                                    </div>
+                                    @if($product->size)
+                                        <div class="size mb-3">
+                                            <h5>Size</h5>
+                                            <div class="d-flex gap-2">
+                                                @php
+                                                    $sizes=explode(',',$product->size);
+                                                @endphp
+                                                @foreach($sizes as $size)
+                                                    <span class="badge bg-light text-dark border">{{$size}}</span>
+                                                @endforeach
                                             </div>
                                         </div>
-                                        <!-- End Single Post -->
-                                    @endforeach
+                                    @endif
+                                    <form action="{{route('single-add-to-cart')}}" method="POST">
+                                        @csrf
+                                        <div class="quantity mb-3">
+                                            <div class="input-group" style="width: 150px;">
+                                                <button type="button" class="btn btn-outline-secondary btn-number" data-type="minus" data-field="quant[1]">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                                <input type="hidden" name="slug" value="{{$product->slug}}">
+                                                <input type="text" name="quant[1]" class="form-control input-number text-center" value="1" min="1" max="1000">
+                                                <button type="button" class="btn btn-outline-secondary btn-number" data-type="plus" data-field="quant[1]">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="add-to-cart d-flex gap-2">
+                                            <button type="submit" class="btn btn-primary">Add to cart</button>
+                                            <a href="{{route('add-to-wishlist',$product->slug)}}" class="btn btn-outline-danger"><i class="fa fa-heart"></i></a>
+                                        </div>
+                                    </form>
                                 </div>
-                                <!--/ End Single Widget -->
-                                <!-- Single Widget -->
-                                <div class="single-widget category">
-                                    <h3 class="title">Brands</h3>
-                                    <ul class="categor-list">
-                                        @php
-                                            $brands=DB::table('brands')->orderBy('title','ASC')->where('status','active')->get();
-                                        @endphp
-                                        @foreach($brands as $brand)
-                                            <li><a href="{{route('product-brand',$brand->slug)}}">{{$brand->title}}</a></li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                <!--/ End Single Widget -->
-                        	</div>
-						</div>
-						<div class="col-lg-9 col-md-8 col-12">
-							<div class="row">
-								<div class="col-12">
-									<!-- Shop Top -->
-									<div class="shop-top">
-										<div class="shop-shorter">
-											<div class="single-shorter">
-												<label>Show :</label>
-												<select class="show" name="show" onchange="this.form.submit();">
-													<option value="">Default</option>
-													<option value="9" @if(!empty($_GET['show']) && $_GET['show']=='9') selected @endif>09</option>
-													<option value="15" @if(!empty($_GET['show']) && $_GET['show']=='15') selected @endif>15</option>
-													<option value="21" @if(!empty($_GET['show']) && $_GET['show']=='21') selected @endif>21</option>
-													<option value="30" @if(!empty($_GET['show']) && $_GET['show']=='30') selected @endif>30</option>
-												</select>
-											</div>
-											<div class="single-shorter">
-												<label>Sort By :</label>
-												<select class='sortBy' name='sortBy' onchange="this.form.submit();">
-													<option value="">Default</option>
-													<option value="title" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='title') selected @endif>Name</option>
-													<option value="price" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='price') selected @endif>Price</option>
-													<option value="category" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='category') selected @endif>Category</option>
-													<option value="brand" @if(!empty($_GET['sortBy']) && $_GET['sortBy']=='brand') selected @endif>Brand</option>
-												</select>
-											</div>
-										</div>
-										<ul class="view-mode">
-											<li><a href="{{route('product-grids')}}"><i class="fa fa-th-large"></i></a></li>
-											<li class="active"><a href="javascript:void(0)"><i class="fa fa-th-list"></i></a></li>
-										</ul>
-									</div>
-									<!--/ End Shop Top -->
-								</div>
-							</div>
-							<div class="row">
-								@if(count($products))
-									@foreach($products as $product)
-									 	{{-- {{$product}} --}}
-										<!-- Start Single List -->
-										<div class="col-12">
-											<div class="row">
-												<div class="col-lg-4 col-md-6 col-sm-6">
-													<div class="single-product">
-														<div class="product-img">
-															<a href="{{route('product-detail',$product->slug)}}">
-															@php 
-																$photo=explode(',',$product->photo);
-															@endphp
-															<img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-															<img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-															</a>
-															<div class="button-head">
-																<div class="product-action">
-																	<a data-toggle="modal" data-target="#{{$product->id}}" title="Quick View" href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-																	<a title="Wishlist" href="{{route('add-to-wishlist',$product->slug)}}" class="wishlist" data-id="{{$product->id}}"><i class=" ti-heart "></i><span>Add to Wishlist</span></a>
-																</div>
-																<div class="product-action-2">
-																	<a title="Add to cart" href="{{route('add-to-cart',$product->slug)}}">Add to cart</a>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="col-lg-8 col-md-6 col-12">
-													<div class="list-content">
-														<div class="product-content">
-															<div class="product-price">
-																@php
-																	$after_discount=($product->price-($product->price*$product->discount)/100);
-																@endphp
-																<span>${{number_format($after_discount,2)}}</span>
-																<del>${{number_format($product->price,2)}}</del>
-															</div>
-															<h3 class="title"><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
-														{{-- <p>{!! html_entity_decode($product->summary) !!}</p> --}}
-														</div>
-														<p class="des pt-2">{!! html_entity_decode($product->summary) !!}</p>
-														<a href="javascript:void(0)" class="btn cart" data-id="{{$product->id}}">Buy Now!</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- End Single List -->
-									@endforeach
-								@else
-									<h4 class="text-warning" style="margin:100px auto;">There are no products.</h4>
-								@endif
-							</div>
-							 <div class="row">
-                            <div class="col-md-12 justify-content-center d-flex">
-                                {{-- {{$products->appends($_GET)->links()}}  --}}
                             </div>
-                          </div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!--/ End Product Style 1  -->	
-		</form>
-		<!-- Modal -->
-		@if($products)
-			@foreach($products as $key=>$product)
-				<div class="modal fade" id="{{$product->id}}" tabindex="-1" role="dialog">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="ti-close" aria-hidden="true"></span></button>
-								</div>
-								<div class="modal-body">
-									<div class="row no-gutters">
-										<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-											<!-- Product Slider -->
-												<div class="product-gallery">
-													<div class="quickview-slider-active">
-														@php 
-															$photo=explode(',',$product->photo);
-														// dd($photo);
-														@endphp
-														@foreach($photo as $data)
-															<div class="single-slider">
-																<img src="{{$data}}" alt="{{$data}}">
-															</div>
-														@endforeach
-													</div>
-												</div>
-											<!-- End Product slider -->
-										</div>
-										<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
-											<div class="quickview-content">
-												<h2>{{$product->title}}</h2>
-												<div class="quickview-ratting-review">
-													<div class="quickview-ratting-wrap">
-														<div class="quickview-ratting">
-															{{-- <i class="yellow fa fa-star"></i>
-															<i class="yellow fa fa-star"></i>
-															<i class="yellow fa fa-star"></i>
-															<i class="yellow fa fa-star"></i>
-															<i class="fa fa-star"></i> --}}
-															@php
-																$rate=DB::table('product_reviews')->where('product_id',$product->id)->avg('rate');
-																$rate_count=DB::table('product_reviews')->where('product_id',$product->id)->count();
-															@endphp
-															@for($i=1; $i<=5; $i++)
-																@if($rate>=$i)
-																	<i class="yellow fa fa-star"></i>
-																@else 
-																<i class="fa fa-star"></i>
-																@endif
-															@endfor
-														</div>
-														<a href="#"> ({{$rate_count}} customer review)</a>
-													</div>
-													<div class="quickview-stock">
-														@if($product->stock >0)
-														<span><i class="fa fa-check-circle-o"></i> {{$product->stock}} in stock</span>
-														@else 
-														<span><i class="fa fa-times-circle-o text-danger"></i> {{$product->stock}} out stock</span>
-														@endif
-													</div>
-												</div>
-												@php
-													$after_discount=($product->price-($product->price*$product->discount)/100);
-												@endphp
-												<h3><small><del class="text-muted">${{number_format($product->price,2)}}</del></small>    ${{number_format($after_discount,2)}}  </h3>
-												<div class="quickview-peragraph">
-													<p>{!! html_entity_decode($product->summary) !!}</p>
-												</div>
-												@if($product->size)
-													<div class="size">
-														<h4>Size</h4>
-														<ul>
-															@php 
-																$sizes=explode(',',$product->size);
-																// dd($sizes);
-															@endphp
-															@foreach($sizes as $size)
-															<li><a href="#" class="one">{{$size}}</a></li>
-															@endforeach
-														</ul>
-													</div>
-												@endif
-												<form action="{{route('single-add-to-cart')}}" method="POST">
-													@csrf 
-													<div class="quantity">
-														<!-- Input Order -->
-														<div class="input-group">
-															<div class="button minus">
-																<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[1]">
-																	<i class="ti-minus"></i>
-																</button>
-															</div>
-															<input type="hidden" name="slug" value="{{$product->slug}}">
-															<input type="text" name="quant[1]" class="input-number"  data-min="1" data-max="1000" value="1">
-															<div class="button plus">
-																<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[1]">
-																	<i class="ti-plus"></i>
-																</button>
-															</div>
-														</div>
-														<!--/ End Input Order -->
-													</div>
-													<div class="add-to-cart">
-														<button type="submit" class="btn">Add to cart</button>
-														<a href="{{route('add-to-wishlist',$product->slug)}}" class="btn min"><i class="ti-heart"></i></a>
-													</div>
-												</form>
-												<div class="default-social">
-												<!-- ShareThis BEGIN --><div class="sharethis-inline-share-buttons"></div><!-- ShareThis END -->
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-				</div>
-			@endforeach
-		@endif
-			<!-- Modal end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+@endif
+
 @endsection
-@push ('styles')
+
+@push('styles')
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
-	 .pagination{
-        display:inline-flex;
+    .tf-shop-sidebar {
+        width: 100%;
+        max-width: 300px;
+        padding-right: 30px;
     }
-	.filter_button{
-        /* height:20px; */
-        text-align: center;
-        background:#F7941D;
-        padding:8px 16px;
-        margin-top:10px;
+
+    .widget-facet {
+        margin-bottom: 30px;
+        border-bottom: 1px solid #e5e5e5;
+        padding-bottom: 20px;
+    }
+
+    .widget-facet:last-child {
+        border-bottom: none;
+    }
+
+    .facet-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        margin-bottom: 15px;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .list-categoris {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .cate-item {
+        margin-bottom: 10px;
+    }
+
+    .cate-item a {
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .cate-item a:hover {
+        color: #F7941D;
+    }
+
+    /* Price Slider Styles */
+    #slider-range {
+        height: 6px;
+        background: #e5e5e5;
+        border: none;
+        border-radius: 3px;
+        margin: 20px 0;
+    }
+
+    #slider-range .ui-slider-range {
+        background: #F7941D;
+        border-radius: 3px;
+    }
+
+    #slider-range .ui-slider-handle {
+        width: 18px;
+        height: 18px;
+        background: #F7941D;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        outline: none;
+        top: -6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    #slider-range .ui-slider-handle:hover,
+    #slider-range .ui-slider-handle:focus {
+        background: #e08419;
+    }
+
+    .price-display {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-top: 5px;
+    }
+
+    .tf-row-flex {
+        display: flex;
+        gap: 30px;
+    }
+
+    .tf-shop-content {
+        flex: 1;
+    }
+
+    .grid-layout {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+
+    @media (max-width: 1200px) {
+        .grid-layout {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .tf-row-flex {
+            flex-direction: column;
+        }
+
+        .tf-shop-sidebar {
+            max-width: 100%;
+            padding-right: 0;
+        }
+
+        .grid-layout {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    .card-product {
+        position: relative;
+    }
+
+    .card-product-wrapper {
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+
+    .card-product-wrapper img {
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s;
+    }
+
+    .card-product-wrapper .img-hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .card-product:hover .img-hover {
+        opacity: 1;
+    }
+
+    .list-product-btn {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .card-product:hover .list-product-btn {
+        opacity: 1;
+    }
+
+    .box-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        text-decoration: none;
+        color: #333;
+    }
+
+    .box-icon:hover {
+        background: #F7941D;
         color: white;
+    }
+
+    .old-price {
+        text-decoration: line-through;
+        color: #999;
+        margin-right: 10px;
+        font-size: 14px;
+    }
+
+    .new-price {
+        color: #F7941D;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .yellow {
+        color: #ffc107;
     }
 </style>
 @endpush
-@push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
-    {{-- <script>
-        $('.cart').click(function(){
-            var quantity=1;
-            var pro_id=$(this).data('id');
-            $.ajax({
-                url:"{{route('add-to-cart')}}",
-                type:"POST",
-                data:{
-                    _token:"{{csrf_token()}}",
-                    quantity:quantity,
-                    pro_id:pro_id
-                },
-                success:function(response){
-                    console.log(response);
-					if(typeof(response)!='object'){
-						response=$.parseJSON(response);
-					}
-					if(response.status){
-						swal('success',response.msg,'success').then(function(){
-							document.location.href=document.location.href;
-						});
-					}
-					else{
-                        swal('error',response.msg,'error').then(function(){
-							// document.location.href=document.location.href;
-						}); 
-                    }
-                }
-            })
-        });
-	</script> --}}
-	<script>
-        $(document).ready(function(){
-        /*----------------------------------------------------*/
-        /*  Jquery Ui slider js
-        /*----------------------------------------------------*/
+@push('scripts')
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+    $(document).ready(function(){
+        console.log('Document ready');
+
+        // Price range slider
         if ($("#slider-range").length > 0) {
-            const max_value = parseInt( $("#slider-range").data('max') ) || 500;
-            const min_value = parseInt($("#slider-range").data('min')) || 0;
-            const currency = $("#slider-range").data('currency') || '';
-            let price_range = min_value+'-'+max_value;
-            if($("#price_range").length > 0 && $("#price_range").val()){
+            @php
+                $max = DB::table('products')->max('price') ?? 1000;
+                $min = DB::table('products')->min('price') ?? 0;
+            @endphp
+
+            const max_value = {{$max}};
+            const min_value = {{$min}};
+
+            console.log('Max:', max_value, 'Min:', min_value);
+
+            let price_range = min_value + '-' + max_value;
+
+            if($("#price_range").val()){
                 price_range = $("#price_range").val().trim();
             }
-            
-            let price = price_range.split('-');
+
+            let prices = price_range.split('-');
+            let minPrice = parseInt(prices[0]) || min_value;
+            let maxPrice = parseInt(prices[1]) || max_value;
+
+            console.log('Initial prices:', minPrice, maxPrice);
+
+            // Initialize slider
             $("#slider-range").slider({
                 range: true,
                 min: min_value,
                 max: max_value,
-                values: price,
-                slide: function (event, ui) {
-                    $("#amount").val(currency + ui.values[0] + " -  "+currency+ ui.values[1]);
+                values: [minPrice, maxPrice],
+                slide: function(event, ui) {
+                    $("#amount").text("$" + ui.values[0] + " - $" + ui.values[1]);
                     $("#price_range").val(ui.values[0] + "-" + ui.values[1]);
+                    console.log('Slider values:', ui.values[0], ui.values[1]);
                 }
             });
-            }
-        if ($("#amount").length > 0) {
-            const m_currency = $("#slider-range").data('currency') || '';
-            $("#amount").val(m_currency + $("#slider-range").slider("values", 0) +
-                "  -  "+m_currency + $("#slider-range").slider("values", 1));
-            }
-        })
-    </script>
 
+            // Set initial display
+            $("#amount").text("$" + $("#slider-range").slider("values", 0) + " - $" + $("#slider-range").slider("values", 1));
+
+            console.log('Slider initialized');
+        } else {
+            console.log('Slider element not found');
+        }
+
+        // Quantity buttons
+        $('.btn-number').click(function(e){
+            e.preventDefault();
+
+            var type = $(this).attr('data-type');
+            var input = $(this).closest('.input-group').find('input[type=text]');
+            var currentVal = parseInt(input.val());
+
+            if(!isNaN(currentVal)) {
+                if(type == 'minus') {
+                    if(currentVal > input.attr('min')) {
+                        input.val(currentVal - 1);
+                    }
+                } else if(type == 'plus') {
+                    if(currentVal < input.attr('max')) {
+                        input.val(currentVal + 1);
+                    }
+                }
+            } else {
+                input.val(1);
+            }
+        });
+    });
+</script>
 @endpush
