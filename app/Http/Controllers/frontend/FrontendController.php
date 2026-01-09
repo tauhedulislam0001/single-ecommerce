@@ -61,7 +61,7 @@ class FrontendController extends Controller
         $category_count = Category::where('status', 'active')
             ->where('is_parent', 1)
             ->orderBy('title', 'ASC')
-            ->withCount(['products' => function($query) {
+            ->withCount(['products' => function ($query) {
                 $query->where('status', 'active');
             }])
             ->get();
@@ -111,7 +111,7 @@ class FrontendController extends Controller
             ->where('is_parent', 1)
             ->where('is_megamenu', 1)
             ->orderBy('title', 'ASC')
-            ->with(['products' => function($query) {
+            ->with(['products' => function ($query) {
                 $query->where('status', 'active')
                     ->orderBy('id', 'DESC')
                     ->limit(4);
@@ -122,7 +122,7 @@ class FrontendController extends Controller
         $megaMenuBrands = Brand::where('status', 'active')
             ->orderBy('title', 'ASC')
             ->limit(3)
-            ->with(['products' => function($query) {
+            ->with(['products' => function ($query) {
                 $query->where('status', 'active')
                     ->orderBy('id', 'DESC')
                     ->limit(4);

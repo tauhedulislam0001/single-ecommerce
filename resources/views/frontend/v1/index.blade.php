@@ -1,8 +1,8 @@
 @extends('frontend.v1.layouts.master')
-@section('title','E-SHOP || HOME PAGE')
+@section('title', 'E-SHOP || HOME PAGE')
 @section('main-content')
 
-<!-- slider -->
+    <!-- slider -->
     <section class="flat-spacing-3">
         <div class="tf-slideshow slider-radius slider-effect-fade position-relative">
             <div class="container">
@@ -10,30 +10,32 @@
                     data-centered="false" data-space="0" data-loop="true" data-auto-play="false" data-delay="2000"
                     data-speed="1000">
                     <div class="swiper-wrapper">
-                        @foreach($banners as $banner)
-                        <div class="swiper-slide">
-                            <div class="wrap-slider">
-                                <!-- Use dynamic image -->
-                                <img class="lazyload" data-src="{{ asset($banner->photo) }}"
-                                    src="{{ asset($banner->photo) }}" alt="{{ $banner->title }}">
+                        @foreach ($banners as $banner)
+                            <div class="swiper-slide">
+                                <div class="wrap-slider">
+                                    <!-- Use dynamic image -->
+                                    <img class="lazyload" data-src="{{ asset($banner->photo) }}"
+                                        src="{{ asset($banner->photo) }}" alt="{{ $banner->title }}">
 
-                                <div class="box-content">
-                                    <div class="container">
-                                        <!-- Use dynamic title and description -->
-                                        <h2 class="fade-item fade-item-1 fw-6 text_white heading font-libre-baskerville mb_14">
-                                            {!! $banner->title !!}
-                                        </h2>
-                                        <p class="fade-item fade-item-2 text_white">
-                                            {!! $banner->description !!}
-                                        </p>
-                                        <a href="{{ $banner->shop_link }}" class="fade-item fade-item-3 tf-btn btn-light-icon animate-hover-btn btn-xl radius-3">
-                                            <span>Shop Collection</span>
-                                            <i class="icon icon-arrow-right"></i>
-                                        </a>
+                                    <div class="box-content">
+                                        <div class="container">
+                                            <!-- Use dynamic title and description -->
+                                            <h2
+                                                class="fade-item fade-item-1 fw-6 text_white heading font-libre-baskerville mb_14">
+                                                {!! $banner->title !!}
+                                            </h2>
+                                            <p class="fade-item fade-item-2 text_white">
+                                                {!! $banner->description !!}
+                                            </p>
+                                            <a href="{{ $banner->shop_link }}"
+                                                class="fade-item fade-item-3 tf-btn btn-light-icon animate-hover-btn btn-xl radius-3">
+                                                <span>Shop Collection</span>
+                                                <i class="icon icon-arrow-right"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                     <div class="wrap-pagination">
@@ -60,24 +62,25 @@
                     data-space-lg="30" data-space-md="15">
                     <div class="swiper-wrapper">
                         @foreach ($allProducts as $item)
-                        <div class="swiper-slide">
-                            <div class="collection-item-v4 hover-img"  style="height: 700px; width: 100%;">
-                                <div class="collection-inner">
-                                    <a href="shop-collection-sub.html" class="collection-image img-style radius-20">
-                                        <img class="lazyload" data-src={{ asset($item->photo) }}
-                                            src={{ asset($item->photo) }} alt="collection-img" height="300" width="400">
-                                    </a>
-                                    <div class="collection-content wow fadeInUp" data-wow-delay="0s">
-                                        <p class="subheading text_white">{{ $item->discount }}% OFF</p>
-                                        <h5 class="heading text_white">{{ $item->title}}
-                                        </h5>
-                                        <a href="shop-collection-list.html"
-                                            class="tf-btn style-2 btn-light-icon radius-3 animate-hover-btn border-0">Shop
-                                            now</a>
+                            <div class="swiper-slide">
+                                <div class="collection-item-v4 hover-img" style="height: 700px; width: 100%;">
+                                    <div class="collection-inner">
+                                        <a href="shop-collection-sub.html" class="collection-image img-style radius-20">
+                                            <img class="lazyload" data-src={{ asset($item->photo) }}
+                                                src={{ asset($item->photo) }} alt="collection-img" height="300"
+                                                width="400">
+                                        </a>
+                                        <div class="collection-content wow fadeInUp" data-wow-delay="0s">
+                                            <p class="subheading text_white">{{ $item->discount }}% OFF</p>
+                                            <h5 class="heading text_white">{{ $item->title }}
+                                            </h5>
+                                            <a href="shop-collection-list.html"
+                                                class="tf-btn style-2 btn-light-icon radius-3 animate-hover-btn border-0">Shop
+                                                now</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -90,24 +93,29 @@
     <!-- Collection -->
     <section class="flat-spacing-12">
         <div class="container">
-            <div class="flat-title flex-row justify-content-between align-items-center px-0 wow fadeInUp" data-wow-delay="0s">
+            <div class="flat-title flex-row justify-content-between align-items-center px-0 wow fadeInUp"
+                data-wow-delay="0s">
                 <h3 class="title font-libre-baskerville fw-7">Categories</h3>
-                <a href="shop-collection-sub.html" class="tf-btn btn-line">View all categories<i class="icon icon-arrow1-top-left"></i></a>
+                <a href="shop-collection-sub.html" class="tf-btn btn-line">View all categories<i
+                        class="icon icon-arrow1-top-left"></i></a>
             </div>
             <div class="hover-sw-nav hover-sw-2">
                 <div dir="ltr" class="swiper tf-sw-collection" data-preview="6" data-tablet="3" data-mobile="2"
                     data-space-lg="50" data-space-md="30" data-space="15" data-loop="false" data-auto-play="false">
                     <div class="swiper-wrapper">
-                        @foreach ($category_count as $category)  <!-- Loop through categories -->
+                        @foreach ($category_count as $category)
+                            <!-- Loop through categories -->
                             <div class="swiper-slide" lazy="true">
                                 <div class="collection-item-circle hover-img">
-                                    <a href="shop-collection-sub.html" class="collection-image img-style" style="width: 100%; height: 200px; overflow: hidden;">
+                                    <a href="shop-collection-sub.html" class="collection-image img-style"
+                                        style="width: 100%; height: 200px; overflow: hidden;">
                                         <!-- Use dynamic image (category image) -->
                                         <img class="lazyload category-image" data-src="{{ asset($category->photo) }}"
                                             src="{{ asset($category->photo) }}" alt="collection-img">
                                     </a>
                                     <div class="collection-content text-center">
-                                        <a href="shop-collection-sub.html" class="link title fw-5">{{ $category->title }}</a>
+                                        <a href="shop-collection-sub.html"
+                                            class="link title fw-5">{{ $category->title }}</a>
                                         <!-- Display the product count -->
                                         <div class="count">{{ $category->product_count }} items</div>
                                     </div>
@@ -127,25 +135,32 @@
     <!-- banner -->
     <section class="flat-spacing-25 pb_0">
         <div class="container">
-            <div
-                class="widget-card-store type-3 hover-img radius-20 overflow-hidden align-items-center tf-grid-layout md-col-2 bg_light-blue-2">
-                <div class="store-item-info">
-                    <h5 class="store-heading font-libre-baskerville fw-7">{!! $single_blog->title !!}</h5>
-                    <div class="description">
-                        <p class="">{!! $single_blog->quote !!}</p>
+            @if ($single_blog != null)
+                <div
+                    class="widget-card-store type-3 hover-img radius-20 overflow-hidden align-items-center tf-grid-layout md-col-2 bg_light-blue-2">
+                    <div class="store-item-info">
+                        <h5 class="store-heading font-libre-baskerville fw-7">{!! $single_blog->title !!}</h5>
+                        <div class="description">
+                            <p class="">{!! $single_blog->quote !!}</p>
+                        </div>
+                        <div class="wow fadeInUp" data-wow-delay="0s">
+                            <a href="shop-default.html" class="tf-btn btn-line fw-6">Shop Collection<i
+                                    class="icon icon-arrow1-top-left"></i></a>
+                        </div>
                     </div>
-                    <div class="wow fadeInUp" data-wow-delay="0s">
-                        <a href="shop-default.html" class="tf-btn btn-line fw-6">Shop Collection<i
-                                class="icon icon-arrow1-top-left"></i></a>
+                    <div class="store-img img-style">
+                        <img class="lazyload" data-src={{ asset($single_blog->photo) }}
+                            src={{ asset($single_blog->photo) }} alt="store-img">
                     </div>
                 </div>
-                <div class="store-img img-style">
-                    <img class="lazyload" data-src={{ asset($single_blog->photo) }}
-                        src={{ asset($single_blog->photo) }} alt="store-img">
+            @else
+                <div class="alert alert-info mt-3">
+                    <p class="mb-0">No trending products available at the moment.</p>
                 </div>
-            </div>
+            @endif
         </div>
     </section>
+
     <!-- /banner -->
 
     <!-- tab -->
@@ -155,68 +170,70 @@
                 <div class="flat-title flex-row justify-content-between align-items-center px-0 flex-wrap wow fadeInUp"
                     data-wow-delay="0s">
                     <h3 class="title font-libre-baskerville fw-7">Top Trending Products</h3>
-                    @if($categoriesForTabs->count() > 0)
-                    <ul class="widget-tab-5 d-flex wow fadeInUp mb-0" data-wow-delay="0s" role="tablist">
-                        <li class="nav-tab-item" role="presentation">
-                            <a href="#all-genres" class="active fw-6 rounded-0" data-bs-toggle="tab">
-                                All Trending ({{ $allTrendingProducts->count() }})
-                            </a>
-                        </li>
-                        @foreach($categoriesForTabs as $category)
-                            @php
-                                $categoryProductCount = isset($trendingProductsByCategory[$category->title])
-                                    ? $trendingProductsByCategory[$category->title]->count()
-                                    : 0;
-                            @endphp
-                            @if($categoryProductCount > 0)
-                                <li class="nav-tab-item" role="presentation">
-                                    <a href="#{{ \Illuminate\Support\Str::slug($category->title) }}"
-                                    class="fw-6 rounded-0" data-bs-toggle="tab">
-                                        {{ $category->title }} ({{ $categoryProductCount }})
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
+                    @if ($categoriesForTabs->count() > 0)
+                        <ul class="widget-tab-5 d-flex wow fadeInUp mb-0" data-wow-delay="0s" role="tablist">
+                            <li class="nav-tab-item" role="presentation">
+                                <a href="#all-genres" class="active fw-6 rounded-0" data-bs-toggle="tab">
+                                    All Trending ({{ $allTrendingProducts->count() }})
+                                </a>
+                            </li>
+                            @foreach ($categoriesForTabs as $category)
+                                @php
+                                    $categoryProductCount = isset($trendingProductsByCategory[$category->title])
+                                        ? $trendingProductsByCategory[$category->title]->count()
+                                        : 0;
+                                @endphp
+                                @if ($categoryProductCount > 0)
+                                    <li class="nav-tab-item" role="presentation">
+                                        <a href="#{{ \Illuminate\Support\Str::slug($category->title) }}"
+                                            class="fw-6 rounded-0" data-bs-toggle="tab">
+                                            {{ $category->title }} ({{ $categoryProductCount }})
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
                     @endif
                 </div>
 
-                @if($allTrendingProducts->count() > 0 || collect($trendingProductsByCategory)->flatten()->count() > 0)
-                <div class="tab-content">
-                    <!-- All Trending Products Tab -->
-                    <div class="tab-pane active show" id="all-genres" role="tabpanel">
-                        <div class="grid-layout" data-grid="grid-6">
-                            @forelse($allTrendingProducts as $product)
-                                @include('frontend.v1.partials.product_card', ['product' => $product])
-                            @empty
-                                <div class="col-12 text-center py-5">
-                                    <p class="text-muted">No trending products found.</p>
-                                </div>
-                            @endforelse
-                        </div>
-                    </div>
-
-                    <!-- Category Trending Tabs -->
-                    @foreach($categoriesForTabs as $category)
-                        @php
-                            $categorySlug = \Illuminate\Support\Str::slug($category->title);
-                            $categoryProducts = $trendingProductsByCategory[$category->title] ?? collect();
-                        @endphp
-                        @if($categoryProducts->count() > 0)
-                            <div class="tab-pane" id="{{ $categorySlug }}" role="tabpanel">
-                                <div class="grid-layout" data-grid="grid-6">
-                                    @foreach($categoryProducts as $product)
-                                        @include('frontend.v1.partials.product_card', ['product' => $product])
-                                    @endforeach
-                                </div>
+                @if ($allTrendingProducts->count() > 0 || collect($trendingProductsByCategory)->flatten()->count() > 0)
+                    <div class="tab-content">
+                        <!-- All Trending Products Tab -->
+                        <div class="tab-pane active show" id="all-genres" role="tabpanel">
+                            <div class="grid-layout" data-grid="grid-6">
+                                @forelse($allTrendingProducts as $product)
+                                    @include('frontend.v1.partials.product_card', ['product' => $product])
+                                @empty
+                                    <div class="col-12 text-center py-5">
+                                        <p class="text-muted">No trending products found.</p>
+                                    </div>
+                                @endforelse
                             </div>
-                        @endif
-                    @endforeach
-                </div>
+                        </div>
+
+                        <!-- Category Trending Tabs -->
+                        @foreach ($categoriesForTabs as $category)
+                            @php
+                                $categorySlug = \Illuminate\Support\Str::slug($category->title);
+                                $categoryProducts = $trendingProductsByCategory[$category->title] ?? collect();
+                            @endphp
+                            @if ($categoryProducts->count() > 0)
+                                <div class="tab-pane" id="{{ $categorySlug }}" role="tabpanel">
+                                    <div class="grid-layout" data-grid="grid-6">
+                                        @foreach ($categoryProducts as $product)
+                                            @include('frontend.v1.partials.product_card', [
+                                                'product' => $product,
+                                            ])
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
                 @else
-                <div class="alert alert-info mt-3">
-                    <p class="mb-0">No trending products available at the moment.</p>
-                </div>
+                    <div class="alert alert-info mt-3">
+                        <p class="mb-0">No trending products available at the moment.</p>
+                    </div>
                 @endif
             </div>
         </div>
@@ -227,8 +244,9 @@
     <section class="">
         <div class="container hover-img">
             <div class="tf-banner-collection img-style radius-20">
-                <img class="lazyload" data-src={{ asset("frontend/asset/images/collections/cls-book-store-7.jpg") }}
-                    src={{ asset("frontend/asset/images/collections/cls-book-store-7.jpg") }} alt="img-banner" loading="lazy">
+                <img class="lazyload" data-src={{ asset('frontend/asset/images/collections/cls-book-store-7.jpg') }}
+                    src={{ asset('frontend/asset/images/collections/cls-book-store-7.jpg') }} alt="img-banner"
+                    loading="lazy">
                 <div class="box-content">
                     <div class="container wow fadeInUp" data-wow-delay="0s">
                         <div class="sub fw-7 text_black-2">SALE UP TO 30% OFF TODAY</div>
@@ -260,8 +278,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-1.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-1.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-1.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-1.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -299,8 +318,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-2.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-2.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-2.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-2.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -338,8 +358,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-3.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-3.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-3.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-3.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -377,8 +398,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-4.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-4.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-4.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-4.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -416,8 +438,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-5.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-5.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-5.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-5.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -455,8 +478,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-6.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-6.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-6.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-6.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -494,8 +518,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-7.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-7.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-7.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-7.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -533,8 +558,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-8.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-8.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-8.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-8.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -572,8 +598,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-9.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-9.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-9.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-9.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -611,8 +638,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-10.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-10.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-10.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-10.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -650,8 +678,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-11.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-11.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-11.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-11.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -689,8 +718,9 @@
                                 <div class="card-product-wrapper">
                                     <a href="product-detail.html" class="product-img">
                                         <img class="lazyload img-product"
-                                            data-src={{ asset("frontend/asset/images/products/book-store-12.jpg") }}
-                                            src={{ asset("frontend/asset/images/products/book-store-12.jpg") }} alt="image-product">
+                                            data-src={{ asset('frontend/asset/images/products/book-store-12.jpg') }}
+                                            src={{ asset('frontend/asset/images/products/book-store-12.jpg') }}
+                                            alt="image-product">
                                     </a>
                                     <div class="list-product-btn absolute-2">
                                         <a href="#quick_add" data-bs-toggle="modal"
@@ -761,16 +791,18 @@
                                 <div class="product">
                                     <div class="image">
                                         <a href="product-detail.html">
-                                            <img class="lazyload" data-src={{ asset("frontend/asset/images/products/book-store-1.jpg") }}
-                                                src={{ asset("frontend/asset/images/products/book-store-1.jpg") }} alt="">
+                                            <img class="lazyload"
+                                                data-src={{ asset('frontend/asset/images/products/book-store-1.jpg') }}
+                                                src={{ asset('frontend/asset/images/products/book-store-1.jpg') }}
+                                                alt="">
                                         </a>
                                     </div>
                                     <div class="content-wrap">
                                         <div class="product-title">
                                             <a href="product-detail.html">Burke Clete</a>
                                         </div>
-                                        <div class="price fw-5 text_primary"><span
-                                                class="old-price">$139.99</span>$105.95</div>
+                                        <div class="price fw-5 text_primary"><span class="old-price">$139.99</span>$105.95
+                                        </div>
                                     </div>
                                     <a href="product-detail.html" class=""><i class="icon-arrow1-top-left"></i></a>
                                 </div>
@@ -797,8 +829,10 @@
                                 <div class="product">
                                     <div class="image">
                                         <a href="product-detail.html">
-                                            <img class="lazyload" data-src={{ asset("frontend/asset/images/products/book-store-2.jpg") }}
-                                                src={{ asset("frontend/asset/images/products/pickleball-red-2.jpg") }} alt="">
+                                            <img class="lazyload"
+                                                data-src={{ asset('frontend/asset/images/products/book-store-2.jpg') }}
+                                                src={{ asset('frontend/asset/images/products/pickleball-red-2.jpg') }}
+                                                alt="">
                                         </a>
                                     </div>
                                     <div class="content-wrap">
@@ -833,8 +867,10 @@
                                 <div class="product">
                                     <div class="image">
                                         <a href="product-detail.html">
-                                            <img class="lazyload" data-src={{ asset("frontend/asset/images/products/book-store-3.jpg") }}
-                                                src={{ asset("frontend/asset/images/products/book-store-3.jpg") }} alt="">
+                                            <img class="lazyload"
+                                                data-src={{ asset('frontend/asset/images/products/book-store-3.jpg') }}
+                                                src={{ asset('frontend/asset/images/products/book-store-3.jpg') }}
+                                                alt="">
                                         </a>
                                     </div>
                                     <div class="content-wrap">
@@ -869,8 +905,10 @@
                                 <div class="product">
                                     <div class="image">
                                         <a href="product-detail.html">
-                                            <img class="lazyload" data-src={{ asset("frontend/asset/images/products/book-store-4.jpg") }}
-                                                src={{ asset("frontend/asset/images/products/book-store-4.jpg") }} alt="">
+                                            <img class="lazyload"
+                                                data-src={{ asset('frontend/asset/images/products/book-store-4.jpg') }}
+                                                src={{ asset('frontend/asset/images/products/book-store-4.jpg') }}
+                                                alt="">
                                         </a>
                                     </div>
                                     <div class="content-wrap">
@@ -926,8 +964,9 @@
                                 </div>
                             </div>
                             <div class="store-img">
-                                <img class="lazyload" data-src={{ asset("frontend/asset/images/shop/store/ourstore7.jpg") }}
-                                    src={{ asset("frontend/asset/images/shop/store/ourstore7.jpg") }} alt="store-img">
+                                <img class="lazyload"
+                                    data-src={{ asset('frontend/asset/images/shop/store/ourstore7.jpg') }}
+                                    src={{ asset('frontend/asset/images/shop/store/ourstore7.jpg') }} alt="store-img">
                             </div>
                         </div>
                     </div>
@@ -942,8 +981,9 @@
                                 </div>
                             </div>
                             <div class="store-img">
-                                <img class="lazyload" data-src={{ asset("frontend/asset/images/shop/store/ourstore8.jpg") }}
-                                    src={{ asset("frontend/asset/images/shop/store/ourstore8.jpg") }} alt="store-img">
+                                <img class="lazyload"
+                                    data-src={{ asset('frontend/asset/images/shop/store/ourstore8.jpg') }}
+                                    src={{ asset('frontend/asset/images/shop/store/ourstore8.jpg') }} alt="store-img">
                             </div>
                         </div>
                     </div>
@@ -958,8 +998,9 @@
                                 </div>
                             </div>
                             <div class="store-img">
-                                <img class="lazyload" data-src={{ asset("frontend/asset/images/shop/store/ourstore9.jpg") }}
-                                    src={{ asset("frontend/asset/images/shop/store/ourstore9.jpg") }} alt="store-img">
+                                <img class="lazyload"
+                                    data-src={{ asset('frontend/asset/images/shop/store/ourstore9.jpg') }}
+                                    src={{ asset('frontend/asset/images/shop/store/ourstore9.jpg') }} alt="store-img">
                             </div>
                         </div>
                     </div>
