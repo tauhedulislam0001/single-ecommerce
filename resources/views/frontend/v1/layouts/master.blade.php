@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     @include('frontend.v1.layouts.head')
 </head>
@@ -16,7 +17,7 @@
     <!-- /preload -->
     <div id="wrapper">
         @php
-            $settings=DB::table('settings')->get();
+            $settings = DB::table('settings')->get();
         @endphp
 
         @include('frontend.v1.layouts.header')
@@ -95,8 +96,8 @@
                         <div class="demo-item">
                             <a href="index.html">
                                 <div class="demo-image position-relative">
-                                    <img class="lazyload" data-src={{ asset("frontend/asset/images/demo/home-01.jpg") }}
-                                        src={{ asset("frontend/asset/images/demo/home-01.jpg") }} alt="home-01">
+                                    <img class="lazyload" data-src={{ asset('frontend/asset/images/demo/home-01.jpg') }}
+                                        src={{ asset('frontend/asset/images/demo/home-01.jpg') }} alt="home-01">
                                     <div class="demo-label">
                                         <span class="demo-new">New</span>
                                         <span>Trend</span>
@@ -121,8 +122,8 @@
                         <div class="demo-item">
                             <a href="home-02.html">
                                 <div class="demo-image position-relative">
-                                    <img class="lazyload" data-src={{ asset("frontend/asset/images/demo/home-02.jpg") }}
-                                        src={{ asset("frontend/asset/images/demo/home-02.jpg") }} alt="home-02">
+                                    <img class="lazyload" data-src={{ asset('frontend/asset/images/demo/home-02.jpg') }}
+                                        src={{ asset('frontend/asset/images/demo/home-02.jpg') }} alt="home-02">
                                     <div class="demo-label">
                                         <span class="demo-hot">Hot</span>
                                     </div>
@@ -133,8 +134,8 @@
                         <div class="demo-item">
                             <a href="home-03.html">
                                 <div class="demo-image">
-                                    <img class="lazyload" data-src={{ asset("frontend/asset/images/demo/home-03.jpg") }}
-                                        src={{ asset("frontend/asset/images/demo/home-03.jpg") }} alt="home-03">
+                                    <img class="lazyload" data-src={{ asset('frontend/asset/images/demo/home-03.jpg') }}
+                                        src={{ asset('frontend/asset/images/demo/home-03.jpg') }} alt="home-03">
                                 </div>
                                 <span class="demo-name">Home Fashion 03</span>
                             </a>
@@ -142,8 +143,8 @@
                         <div class="demo-item">
                             <a href="home-04.html">
                                 <div class="demo-image">
-                                    <img class="lazyload" data-src={{ asset("frontend/asset/images/demo/home-04.jpg") }}
-                                        src={{ asset("frontend/asset/images/demo/home-04.jpg") }} alt="home-04">
+                                    <img class="lazyload" data-src={{ asset('frontend/asset/images/demo/home-04.jpg') }}
+                                        src={{ asset('frontend/asset/images/demo/home-04.jpg') }} alt="home-04">
                                 </div>
                                 <span class="demo-name">Home Fashion 04</span>
                             </a>
@@ -151,8 +152,8 @@
                         <div class="demo-item">
                             <a href="home-05.html">
                                 <div class="demo-image">
-                                    <img class="lazyload" data-src={{ asset("frontend/asset/images/demo/home-05.jpg") }}
-                                        src={{ asset("frontend/asset/images/demo/home-05.jpg") }} alt="home-05">
+                                    <img class="lazyload" data-src={{ asset('frontend/asset/images/demo/home-05.jpg') }}
+                                        src={{ asset('frontend/asset/images/demo/home-05.jpg') }} alt="home-05">
                                 </div>
                                 <span class="demo-name">Home Fashion 05</span>
                             </a>
@@ -160,8 +161,9 @@
                         <div class="demo-item">
                             <a href="home-06.html">
                                 <div class="demo-image position-relative">
-                                    <img class="lazyload" data-src={{ asset("frontend/asset/images/demo/home-06.jpg") }}
-                                        src={{ asset("frontend/asset/images/demo/home-06.jpg") }} alt="home-06">
+                                    <img class="lazyload"
+                                        data-src={{ asset('frontend/asset/images/demo/home-06.jpg') }}
+                                        src={{ asset('frontend/asset/images/demo/home-06.jpg') }} alt="home-06">
                                 </div>
                                 <span class="demo-name">Home Fashion 06</span>
                             </a>
@@ -169,8 +171,10 @@
                         <div class="demo-item">
                             <a href="home-drinkwear.html">
                                 <div class="demo-image position-relative">
-                                    <img class="lazyload" data-src="{{ asset("frontend/asset/images/demo/home-drinkwear.png") }}
-                                        src="{{ asset("frontend/asset/images/demo/home-drinkwear.png") }} alt="home-drinkwear">
+                                    <img class="lazyload"
+                                        data-src="{{ asset('frontend/asset/images/demo/home-drinkwear.png') }}
+                                        src="{{ asset('frontend/asset/images/demo/home-drinkwear.png') }}
+                                        alt="home-drinkwear">
                                     <div class="demo-label">
                                         <span class="demo-new">New</span>
                                     </div>
@@ -181,8 +185,10 @@
                         <div class="demo-item">
                             <a href="home-supplement.html">
                                 <div class="demo-image position-relative">
-                                    <img class="lazyload" data-src="{{ asset("frontend/asset/images/demo/home-supplement.png") }}
-                                        src="{{ asset("frontend/asset/images/demo/home-supplement.png") }} alt="home-supplement">
+                                    <img class="lazyload"
+                                        data-src="{{ asset('frontend/asset/images/demo/home-supplement.png') }}
+                                        src="{{ asset('frontend/asset/images/demo/home-supplement.png') }}
+                                        alt="home-supplement">
                                     <div class="demo-label">
                                         <span class="demo-new">New</span>
                                     </div>
@@ -239,8 +245,9 @@
                         <div class="demo-item">
                             <a href="home-07.html">
                                 <div class="demo-image">
-                                    <img class="lazyload" data-src={{ asset("frontend/asset/images/demo/home-07.jpg") }}
-                                        src={{ asset("frontend/asset/images/demo/home-07.jpg") }} alt="home-07">
+                                    <img class="lazyload"
+                                        data-src={{ asset('frontend/asset/images/demo/home-07.jpg') }}
+                                        src={{ asset('frontend/asset/images/demo/home-07.jpg') }} alt="home-07">
                                 </div>
                                 <span class="demo-name">Home Fashion 07</span>
                             </a>
@@ -248,8 +255,9 @@
                         <div class="demo-item">
                             <a href="home-08.html">
                                 <div class="demo-image">
-                                    <img class="lazyload" data-src={{ asset("frontend/asset/images/demo/home-08.jpg") }}
-                                        src={{ asset("frontend/asset/images/demo/home-08.jpg") }} alt="home-08">
+                                    <img class="lazyload"
+                                        data-src={{ asset('frontend/asset/images/demo/home-08.jpg') }}
+                                        src={{ asset('frontend/asset/images/demo/home-08.jpg') }} alt="home-08">
                                 </div>
                                 <span class="demo-name">Home Fashion 08</span>
                             </a>
@@ -568,14 +576,15 @@
                 <div class="title fw-5">
                     Search our site
                     <div class="close">
-                        <span class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></span>
+                        <span class="icon-close icon-close-popup" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></span>
                     </div>
                 </div>
                 <div class="tf-search-sticky">
                     <form class="tf-mini-search-frm">
                         <fieldset class="text">
-                            <input type="text" placeholder="Search" class="" name="text" tabindex="0" value=""
-                                aria-required="true" required="">
+                            <input type="text" placeholder="Search" class="" name="text" tabindex="0"
+                                value="" aria-required="true" required="">
                         </fieldset>
                         <button class="" type="submit"><i class="icon-search"></i></button>
                     </form>
@@ -607,7 +616,8 @@
                                 <div class="tf-loop-item">
                                     <div class="image">
                                         <a href="product-detail.html">
-                                            <img src={{ asset("frontend/asset/images/products/white-3.jpg") }} alt="">
+                                            <img src={{ asset('frontend/asset/images/products/white-3.jpg') }}
+                                                alt="">
                                         </a>
                                     </div>
                                     <div class="content">
@@ -621,7 +631,8 @@
                                 <div class="tf-loop-item">
                                     <div class="image">
                                         <a href="product-detail.html">
-                                            <img src={{ asset("frontend/asset/images/products/white-2.jpg") }} alt="">
+                                            <img src={{ asset('frontend/asset/images/products/white-2.jpg') }}
+                                                alt="">
                                         </a>
                                     </div>
                                     <div class="content">
@@ -634,7 +645,8 @@
                                 <div class="tf-loop-item">
                                     <div class="image">
                                         <a href="product-detail.html">
-                                            <img src={{ asset("frontend/asset/images/products/white-1.jpg") }} alt="">
+                                            <img src={{ asset('frontend/asset/images/products/white-1.jpg') }}
+                                                alt="">
                                         </a>
                                     </div>
                                     <div class="content">
@@ -662,7 +674,7 @@
                     <li class="nav-mb-item">
                         <a href="shop-default.html" class="tf-category-link mb-menu-link">
                             <div class="image">
-                                <img src={{ asset("frontend/asset/images/shop/cate/cate1.jpg") }} alt="">
+                                <img src={{ asset('frontend/asset/images/shop/cate/cate1.jpg') }} alt="">
                             </div>
                             <span>Accessories</span>
                         </a>
@@ -670,7 +682,7 @@
                     <li class="nav-mb-item">
                         <a href="shop-default.html" class="tf-category-link mb-menu-link">
                             <div class="image">
-                                <img src={{ asset("frontend/asset/images/shop/cate/cate2.jpg") }} alt="">
+                                <img src={{ asset('frontend/asset/images/shop/cate/cate2.jpg') }} alt="">
                             </div>
                             <span>Dog</span>
                         </a>
@@ -678,7 +690,7 @@
                     <li class="nav-mb-item">
                         <a href="shop-default.html" class="tf-category-link mb-menu-link">
                             <div class="image">
-                                <img src={{ asset("frontend/asset/images/shop/cate/cate3.jpg") }} alt="">
+                                <img src={{ asset('frontend/asset/images/shop/cate/cate3.jpg') }} alt="">
                             </div>
                             <span>Grocery</span>
                         </a>
@@ -686,7 +698,7 @@
                     <li class="nav-mb-item">
                         <a href="shop-default.html" class="tf-category-link mb-menu-link">
                             <div class="image">
-                                <img src={{ asset("frontend/asset/images/shop/cate/cate4.png") }} alt="">
+                                <img src={{ asset('frontend/asset/images/shop/cate/cate4.png') }} alt="">
                             </div>
                             <span>Handbag</span>
                         </a>
@@ -695,7 +707,7 @@
                         <a href="#cate-menu-one" class="tf-category-link has-children collapsed mb-menu-link"
                             data-bs-toggle="collapse" aria-expanded="true" aria-controls="cate-menu-one">
                             <div class="image">
-                                <img src={{ asset("frontend/asset/images/shop/cate/cate5.jpg") }} alt="">
+                                <img src={{ asset('frontend/asset/images/shop/cate/cate5.jpg') }} alt="">
                             </div>
                             <span>Fashion</span>
                             <span class="btn-open-sub"></span>
@@ -707,7 +719,8 @@
                                         class="tf-category-link has-children sub-nav-link collapsed"
                                         data-bs-toggle="collapse" aria-expanded="true" aria-controls="cate-shop-one">
                                         <div class="image">
-                                            <img src={{ asset("frontend/asset/images/shop/cate/cate6.jpg") }} alt="">
+                                            <img src={{ asset('frontend/asset/images/shop/cate/cate6.jpg') }}
+                                                alt="">
                                         </div>
                                         <span>Mens</span>
                                         <span class="btn-open-sub"></span>
@@ -717,7 +730,8 @@
                                             <li>
                                                 <a href="shop-default.html" class="tf-category-link sub-nav-link">
                                                     <div class="image">
-                                                        <img src={{ asset("frontend/asset/images/shop/cate/cate1.jpg") }} alt="">
+                                                        <img src={{ asset('frontend/asset/images/shop/cate/cate1.jpg') }}
+                                                            alt="">
                                                     </div>
                                                     <span>Accessories</span>
                                                 </a>
@@ -725,7 +739,8 @@
                                             <li>
                                                 <a href="shop-default.html" class="tf-category-link sub-nav-link">
                                                     <div class="image">
-                                                        <img src={{ asset("frontend/asset/images/shop/cate/cate8.jpg") }} alt="">
+                                                        <img src={{ asset('frontend/asset/images/shop/cate/cate8.jpg') }}
+                                                            alt="">
                                                     </div>
                                                     <span>Shoes</span>
                                                 </a>
@@ -738,7 +753,8 @@
                                         class="tf-category-link has-children sub-nav-link collapsed"
                                         data-bs-toggle="collapse" aria-expanded="true" aria-controls="cate-shop-two">
                                         <div class="image">
-                                            <img src={{ asset("frontend/asset/images/shop/cate/cate9.jpg") }} alt="">
+                                            <img src={{ asset('frontend/asset/images/shop/cate/cate9.jpg') }}
+                                                alt="">
                                         </div>
                                         <span>Womens</span>
                                         <span class="btn-open-sub"></span>
@@ -748,7 +764,8 @@
                                             <li>
                                                 <a href="shop-default.html" class="tf-category-link sub-nav-link">
                                                     <div class="image">
-                                                        <img src={{ asset("frontend/asset/images/shop/cate/cate4.png") }} alt="">
+                                                        <img src={{ asset('frontend/asset/images/shop/cate/cate4.png') }}
+                                                            alt="">
                                                     </div>
                                                     <span>Handbag</span>
                                                 </a>
@@ -756,7 +773,8 @@
                                             <li>
                                                 <a href="shop-default.html" class="tf-category-link sub-nav-link">
                                                     <div class="image">
-                                                        <img src={{ asset("frontend/asset/images/shop/cate/cate7.jpg") }} alt="">
+                                                        <img src={{ asset('frontend/asset/images/shop/cate/cate7.jpg') }}
+                                                            alt="">
                                                     </div>
                                                     <span>Tee</span>
                                                 </a>
@@ -771,7 +789,7 @@
                         <a href="#cate-menu-two" class="tf-category-link has-children collapsed mb-menu-link"
                             data-bs-toggle="collapse" aria-expanded="true" aria-controls="cate-menu-two">
                             <div class="image">
-                                <img src={{ asset("frontend/asset/images/shop/cate/cate6.jpg") }} alt="">
+                                <img src={{ asset('frontend/asset/images/shop/cate/cate6.jpg') }} alt="">
                             </div>
                             <span>Men</span>
                             <span class="btn-open-sub"></span>
@@ -781,7 +799,8 @@
                                 <li>
                                     <a href="shop-default.html" class="tf-category-link sub-nav-link">
                                         <div class="image">
-                                            <img src={{ asset("frontend/asset/images/shop/cate/cate1.jpg") }} alt="">
+                                            <img src={{ asset('frontend/asset/images/shop/cate/cate1.jpg') }}
+                                                alt="">
                                         </div>
                                         <span>Accessories</span>
                                     </a>
@@ -789,7 +808,8 @@
                                 <li>
                                     <a href="shop-default.html" class="tf-category-link sub-nav-link">
                                         <div class="image">
-                                            <img src={{ asset("frontend/asset/images/shop/cate/cate8.jpg") }} alt="">
+                                            <img src={{ asset('frontend/asset/images/shop/cate/cate8.jpg') }}
+                                                alt="">
                                         </div>
                                         <span>Shoes</span>
                                     </a>
@@ -800,7 +820,7 @@
                     <li class="nav-mb-item">
                         <a href="shop-default.html" class="tf-category-link mb-menu-link">
                             <div class="image">
-                                <img src={{ asset("frontend/asset/images/shop/cate/cate7.jpg") }} alt="">
+                                <img src={{ asset('frontend/asset/images/shop/cate/cate7.jpg') }} alt="">
                             </div>
                             <span>Tee</span>
                         </a>
@@ -808,7 +828,7 @@
                     <li class="nav-mb-item">
                         <a href="shop-default.html" class="tf-category-link mb-menu-link">
                             <div class="image">
-                                <img src={{ asset("frontend/asset/images/shop/cate/cate8.jpg") }} alt="">
+                                <img src={{ asset('frontend/asset/images/shop/cate/cate8.jpg') }} alt="">
                             </div>
                             <span>Shoes</span>
                         </a>
@@ -817,7 +837,7 @@
                         <a href="#cate-menu-three" class="tf-category-link has-children collapsed mb-menu-link"
                             data-bs-toggle="collapse" aria-expanded="true" aria-controls="cate-menu-three">
                             <div class="image">
-                                <img src={{ asset("frontend/asset/images/shop/cate/cate9.jpg") }} alt="">
+                                <img src={{ asset('frontend/asset/images/shop/cate/cate9.jpg') }} alt="">
                             </div>
                             <span>Women</span>
                             <span class="btn-open-sub"></span>
@@ -827,7 +847,8 @@
                                 <li>
                                     <a href="shop-default.html" class="tf-category-link sub-nav-link">
                                         <div class="image">
-                                            <img src={{ asset("frontend/asset/images/shop/cate/cate4.png") }} alt="">
+                                            <img src={{ asset('frontend/asset/images/shop/cate/cate4.png') }}
+                                                alt="">
                                         </div>
                                         <span>Handbag</span>
                                     </a>
@@ -835,7 +856,8 @@
                                 <li>
                                     <a href="shop-default.html" class="tf-category-link sub-nav-link">
                                         <div class="image">
-                                            <img src={{ asset("frontend/asset/images/shop/cate/cate7.jpg") }} alt="">
+                                            <img src={{ asset('frontend/asset/images/shop/cate/cate7.jpg') }}
+                                                alt="">
                                         </div>
                                         <span>Tee</span>
                                     </a>
@@ -862,7 +884,9 @@
                     <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
                 </div>
                 <div class="tf-login-form">
-                    <form class="" action="../../../external.html?link=https://themesflat.co/html/ecomus/my-account.html" accept-charset="utf-8">
+                    <form class=""
+                        action="../../../external.html?link=https://themesflat.co/html/ecomus/my-account.html"
+                        accept-charset="utf-8">
                         <div class="tf-field style-1">
                             <input class="tf-field-input tf-input" placeholder=" " type="email" name="">
                             <label class="tf-field-label" for="">Email *</label>
@@ -982,8 +1006,8 @@
                         <div class="tf-progress-bar">
                             <span style="width: 50%;">
                                 <div class="progress-car">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="14" viewBox="0 0 21 14"
-                                        fill="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="14"
+                                        viewBox="0 0 21 14" fill="currentColor">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M0 0.875C0 0.391751 0.391751 0 0.875 0H13.5625C14.0457 0 14.4375 0.391751 14.4375 0.875V3.0625H17.3125C17.5867 3.0625 17.845 3.19101 18.0104 3.40969L20.8229 7.12844C20.9378 7.2804 21 7.46572 21 7.65625V11.375C21 11.8582 20.6082 12.25 20.125 12.25H17.7881C17.4278 13.2695 16.4554 14 15.3125 14C14.1696 14 13.1972 13.2695 12.8369 12.25H7.72563C7.36527 13.2695 6.39293 14 5.25 14C4.10706 14 3.13473 13.2695 2.77437 12.25H0.875C0.391751 12.25 0 11.8582 0 11.375V0.875ZM2.77437 10.5C3.13473 9.48047 4.10706 8.75 5.25 8.75C6.39293 8.75 7.36527 9.48046 7.72563 10.5H12.6875V1.75H1.75V10.5H2.77437ZM14.4375 8.89937V4.8125H16.8772L19.25 7.94987V10.5H17.7881C17.4278 9.48046 16.4554 8.75 15.3125 8.75C15.0057 8.75 14.7112 8.80264 14.4375 8.89937ZM5.25 10.5C4.76676 10.5 4.375 10.8918 4.375 11.375C4.375 11.8582 4.76676 12.25 5.25 12.25C5.73323 12.25 6.125 11.8582 6.125 11.375C6.125 10.8918 5.73323 10.5 5.25 10.5ZM15.3125 10.5C14.8293 10.5 14.4375 10.8918 14.4375 11.375C14.4375 11.8582 14.8293 12.25 15.3125 12.25C15.7957 12.25 16.1875 11.8582 16.1875 11.375C16.1875 10.8918 15.7957 10.5 15.3125 10.5Z">
                                         </path>
@@ -1003,7 +1027,8 @@
                                     <div class="tf-mini-cart-item">
                                         <div class="tf-mini-cart-image">
                                             <a href="product-detail.html">
-                                                <img src={{ asset("frontend/asset/images/products/white-2.jpg") }} alt="">
+                                                <img src={{ asset('frontend/asset/images/products/white-2.jpg') }}
+                                                    alt="">
                                             </a>
                                         </div>
                                         <div class="tf-mini-cart-info">
@@ -1023,11 +1048,13 @@
                                     <div class="tf-mini-cart-item">
                                         <div class="tf-mini-cart-image">
                                             <a href="product-detail.html">
-                                                <img src={{ asset("frontend/asset/images/products/white-3.jpg") }} alt="">
+                                                <img src={{ asset('frontend/asset/images/products/white-3.jpg') }}
+                                                    alt="">
                                             </a>
                                         </div>
                                         <div class="tf-mini-cart-info">
-                                            <a class="title link" href="product-detail.html">Oversized Motif T-shirt</a>
+                                            <a class="title link" href="product-detail.html">Oversized Motif
+                                                T-shirt</a>
                                             <div class="price fw-6">$25.00</div>
                                             <div class="tf-mini-cart-btns">
                                                 <div class="wg-quantity small">
@@ -1051,7 +1078,8 @@
                                                 <div class="tf-minicart-recommendations-item">
                                                     <div class="tf-minicart-recommendations-item-image">
                                                         <a href="product-detail.html">
-                                                            <img src={{ asset("frontend/asset/images/products/white-3.jpg") }} alt="">
+                                                            <img src={{ asset('frontend/asset/images/products/white-3.jpg') }}
+                                                                alt="">
                                                         </a>
                                                     </div>
                                                     <div class="tf-minicart-recommendations-item-infos flex-grow-1">
@@ -1070,11 +1098,13 @@
                                                 <div class="tf-minicart-recommendations-item">
                                                     <div class="tf-minicart-recommendations-item-image">
                                                         <a href="product-detail.html">
-                                                            <img src={{ asset("frontend/asset/images/products/white-2.jpg") }} alt="">
+                                                            <img src={{ asset('frontend/asset/images/products/white-2.jpg') }}
+                                                                alt="">
                                                         </a>
                                                     </div>
                                                     <div class="tf-minicart-recommendations-item-infos flex-grow-1">
-                                                        <a class="title" href="product-detail.html">Loose Fit Hoodie</a>
+                                                        <a class="title" href="product-detail.html">Loose Fit
+                                                            Hoodie</a>
                                                         <div class="price">$25.00</div>
                                                     </div>
                                                     <div class="tf-minicart-recommendations-item-quickview">
@@ -1092,8 +1122,8 @@
                         <div class="tf-mini-cart-bottom">
                             <div class="tf-mini-cart-tool">
                                 <div class="tf-mini-cart-tool-btn btn-add-note">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" viewBox="0 0 16 18"
-                                        fill="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                        viewBox="0 0 16 18" fill="currentColor">
                                         <path
                                             d="M5.12187 16.4582H2.78952C2.02045 16.4582 1.39476 15.8325 1.39476 15.0634V2.78952C1.39476 2.02045 2.02045 1.39476 2.78952 1.39476H11.3634C12.1325 1.39476 12.7582 2.02045 12.7582 2.78952V7.07841C12.7582 7.46357 13.0704 7.77579 13.4556 7.77579C13.8407 7.77579 14.1529 7.46357 14.1529 7.07841V2.78952C14.1529 1.25138 12.9016 0 11.3634 0H2.78952C1.25138 0 0 1.25138 0 2.78952V15.0634C0 16.6015 1.25138 17.8529 2.78952 17.8529H5.12187C5.50703 17.8529 5.81925 17.5407 5.81925 17.1555C5.81925 16.7704 5.50703 16.4582 5.12187 16.4582Z">
                                         </path>
@@ -1103,16 +1133,16 @@
                                     </svg>
                                 </div>
                                 <div class="tf-mini-cart-tool-btn btn-add-gift">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18"
-                                        fill="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18"
+                                        viewBox="0 0 17 18" fill="currentColor">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M2.99566 2.73409C2.99566 0.55401 5.42538 -0.746668 7.23916 0.463462L8.50073 1.30516L9.7623 0.463462C11.5761 -0.746668 14.0058 0.55401 14.0058 2.73409V3.24744H14.8225C15.9633 3.24744 16.8881 4.17233 16.8881 5.31312V6.82566C16.8881 7.21396 16.5734 7.52873 16.1851 7.52873H15.8905V15.1877C15.8905 15.1905 15.8905 15.1933 15.8905 15.196C15.886 16.7454 14.6286 18 13.0782 18H3.92323C2.37003 18 1.11091 16.7409 1.11091 15.1877V7.52877H0.81636C0.42806 7.52877 0.113281 7.21399 0.113281 6.82569V5.31316C0.113281 4.17228 1.03812 3.24744 2.179 3.24744H2.99566V2.73409ZM4.40181 3.24744H7.79765V2.52647L6.45874 1.63317C5.57987 1.0468 4.40181 1.67677 4.40181 2.73409V3.24744ZM9.20381 2.52647V3.24744H12.5996V2.73409C12.5996 1.67677 11.4216 1.0468 10.5427 1.63317L9.20381 2.52647ZM2.179 4.6536C1.81472 4.6536 1.51944 4.94888 1.51944 5.31316V6.12261H5.73398L5.734 4.6536H2.179ZM5.73401 7.52877V13.9306C5.73401 14.1806 5.86682 14.4119 6.08281 14.5379C6.29879 14.6639 6.56545 14.6657 6.78312 14.5426L8.50073 13.5715L10.2183 14.5426C10.436 14.6657 10.7027 14.6639 10.9187 14.5379C11.1346 14.4119 11.2674 14.1806 11.2674 13.9306V7.52873H14.4844V15.1603C14.4844 15.1627 14.4843 15.1651 14.4843 15.1675V15.1877C14.4843 15.9643 13.8548 16.5938 13.0782 16.5938H3.92323C3.14663 16.5938 2.51707 15.9643 2.51707 15.1877V7.52877H5.73401ZM15.482 6.12258V5.31312C15.482 4.94891 15.1867 4.6536 14.8225 4.6536H11.2674V6.12258H15.482ZM9.86129 4.6536H7.14017V12.7254L8.15469 12.1518C8.36941 12.0304 8.63204 12.0304 8.84676 12.1518L9.86129 12.7254V4.6536Z">
                                         </path>
                                     </svg>
                                 </div>
                                 <div class="tf-mini-cart-tool-btn btn-estimate-shipping">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="18" viewBox="0 0 26 18"
-                                        fill="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="18"
+                                        viewBox="0 0 26 18" fill="currentColor">
                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                             d="M0 0.811989C0 0.36354 0.36354 0 0.811989 0H15.4278C15.8763 0 16.2398 0.36354 16.2398 0.811989V3.10596H21.0144C23.6241 3.10596 25.8643 5.05894 25.8643 7.61523V14.6414C25.8643 15.0899 25.5007 15.4534 25.0523 15.4534H23.545C23.2139 16.9115 21.9098 18 20.3514 18C18.7931 18 17.4889 16.9115 17.1578 15.4534H8.69534C8.36423 16.9115 7.0601 18 5.50175 18C3.9434 18 2.63927 16.9115 2.30815 15.4534H0.811989C0.36354 15.4534 0 15.0899 0 14.6414V0.811989ZM2.35089 13.8294C2.74052 12.4562 4.00366 11.4503 5.50175 11.4503C6.99983 11.4503 8.26298 12.4562 8.6526 13.8294H14.6158V1.62398H1.62398V13.8294H2.35089ZM16.2398 4.72994V7.95749H24.2403V7.61523C24.2403 6.08759 22.8649 4.72994 21.0144 4.72994H16.2398ZM24.2403 9.58147H16.2398V13.8294H17.2006C17.5902 12.4562 18.8533 11.4503 20.3514 11.4503C21.8495 11.4503 23.1126 12.4562 23.5023 13.8294H24.2403V9.58147ZM5.50175 13.0743C4.58999 13.0743 3.85087 13.8134 3.85087 14.7251C3.85087 15.6369 4.58999 16.376 5.50175 16.376C6.41351 16.376 7.15263 15.6369 7.15263 14.7251C7.15263 13.8134 6.41351 13.0743 5.50175 13.0743ZM20.3514 13.0743C19.4397 13.0743 18.7005 13.8134 18.7005 14.7251C18.7005 15.6369 19.4397 16.376 20.3514 16.376C21.2632 16.376 22.0023 15.6369 22.0023 14.7251C22.0023 13.8134 21.2632 13.0743 20.3514 13.0743Z">
                                         </path>
@@ -1124,7 +1154,8 @@
                                     <div class="tf-cart-total">Subtotal</div>
                                     <div class="tf-totals-total-value fw-6">$49.99 USD</div>
                                 </div>
-                                <div class="tf-cart-tax">Taxes and <a href="#">shipping</a> calculated at checkout</div>
+                                <div class="tf-cart-tax">Taxes and <a href="#">shipping</a> calculated at
+                                    checkout</div>
                                 <div class="tf-mini-cart-line"></div>
                                 <div class="tf-cart-checkbox">
                                     <div class="tf-checkbox-wrapp">
@@ -1302,64 +1333,8 @@
     </div>
     <!-- /shoppingCart -->
 
-    <!-- modal compare -->
-    <div class="offcanvas offcanvas-bottom canvas-compare" id="compare">
-        <div class="canvas-wrapper">
-            <header class="canvas-header">
-                <div class="close-popup">
-                    <span class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></span>
-                </div>
-            </header>
-            <div class="canvas-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="tf-compare-list">
-                                <div class="tf-compare-head">
-                                    <div class="title">Compare Products</div>
-                                </div>
-                                <div class="tf-compare-offcanvas">
-                                    <div class="tf-compare-item">
-                                        <div class="position-relative">
-                                            <div class="icon">
-                                                <i class="icon-close"></i>
-                                            </div>
-                                            <a href="product-detail.html">
-                                                <img class="radius-3" src={{ asset("frontend/asset/images/products/orange-1.jpg") }} alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="tf-compare-item">
-                                        <div class="position-relative">
-                                            <div class="icon">
-                                                <i class="icon-close"></i>
-                                            </div>
-                                            <a href="product-detail.html">
-                                                <img class="radius-3" src={{ asset("frontend/asset/images/products/pink-1.jpg") }} alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tf-compare-buttons">
-                                    <div class="tf-compare-buttons-wrap">
-                                        <a href="compare.html"
-                                            class="tf-btn radius-3 btn-fill justify-content-center fw-6 fs-14 flex-grow-1 animate-hover-btn ">Compare</a>
-                                        <div class="tf-compapre-button-clear-all link">
-                                            Clear All
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /modal compare -->
-
     <!-- modal quick_add -->
-    <div class="modal fade modalDemo popup-quickadd" id="quick_add">
+    <div class="modal fade modalDemo popup-quickadd" id="quick_add" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="header">
@@ -1368,90 +1343,56 @@
                 <div class="wrap">
                     <div class="tf-product-info-item">
                         <div class="image">
-                            <img src={{ asset("frontend/asset/images/products/orange-1.jpg") }} alt="">
+                            <img id="quick_add_image" src="" alt="">
                         </div>
                         <div class="content">
-                            <a href="product-detail.html">Ribbed Tank Top</a>
+                            <a id="quick_add_title" href=""></a>
                             <div class="tf-product-info-price">
-                                <!-- <div class="price-on-sale">$8.00</div>
-                                <div class="compare-at-price">$10.00</div>
-                                <div class="badges-on-sale"><span>20</span>% OFF</div> -->
-                                <div class="price">$18.00</div>
+                                <div class="price-on-sale" id="quick_add_sale_price" style="display: none;"></div>
+                                <div class="compare-at-price" id="quick_add_original_price"
+                                    style="display: none;"></div>
+                                <div class="badges-on-sale" id="quick_add_discount" style="display: none;"></div>
+                                <div class="price" id="quick_add_price"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="tf-product-info-variant-picker mb_15">
+                    <div class="tf-product-info-variant-picker mb_15" id="quick_add_sizes_section"
+                        style="display: none;">
                         <div class="variant-picker-item">
                             <div class="variant-picker-label">
-                                Color: <span class="fw-6 variant-picker-label-value">Orange</span>
+                                Size: <span class="fw-6" id="quick_add_selected_size">S</span>
                             </div>
-                            <div class="variant-picker-values">
-                                <input id="values-orange" type="radio" name="color" checked>
-                                <label class="hover-tooltip radius-60" for="values-orange" data-value="Orange">
-                                    <span class="btn-checkbox bg-color-orange"></span>
-                                    <span class="tooltip">Orange</span>
-                                </label>
-                                <input id="values-black" type="radio" name="color">
-                                <label class=" hover-tooltip radius-60" for="values-black" data-value="Black">
-                                    <span class="btn-checkbox bg-color-black"></span>
-                                    <span class="tooltip">Black</span>
-                                </label>
-                                <input id="values-white" type="radio" name="color">
-                                <label class="hover-tooltip radius-60" for="values-white" data-value="White">
-                                    <span class="btn-checkbox bg-color-white"></span>
-                                    <span class="tooltip">White</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="variant-picker-item">
-                            <div class="variant-picker-label">
-                                Size: <span class="fw-6 variant-picker-label-value">S</span>
-                            </div>
-                            <div class="variant-picker-values">
-                                <input type="radio" name="size" id="values-s" checked>
-                                <label class="style-text" for="values-s" data-value="S">
-                                    <p>S</p>
-                                </label>
-                                <input type="radio" name="size" id="values-m">
-                                <label class="style-text" for="values-m" data-value="M">
-                                    <p>M</p>
-                                </label>
-                                <input type="radio" name="size" id="values-l">
-                                <label class="style-text" for="values-l" data-value="L">
-                                    <p>L</p>
-                                </label>
-                                <input type="radio" name="size" id="values-xl">
-                                <label class="style-text" for="values-xl" data-value="XL">
-                                    <p>XL</p>
-                                </label>
+                            <div class="variant-picker-values" id="quick_add_sizes">
+                                <!-- Sizes will be populated dynamically -->
                             </div>
                         </div>
                     </div>
                     <div class="tf-product-info-quantity mb_15">
                         <div class="quantity-title fw-6">Quantity</div>
                         <div class="wg-quantity">
-                            <span class="btn-quantity minus-btn">-</span>
-                            <input type="text" name="number" value="1">
-                            <span class="btn-quantity plus-btn">+</span>
+                            <span class="btn-quantity minus-btn" id="quick_add_minus">-</span>
+                            <input type="text" id="quick_add_quantity" name="number" value="1"
+                                min="1">
+                            <span class="btn-quantity plus-btn" id="quick_add_plus">+</span>
                         </div>
+                        <div class="text-muted small mt-1" id="quick_add_stock"></div>
                     </div>
                     <div class="tf-product-info-buy-button">
-                        <form class="">
-                            <a href="#"
-                                class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add
-                                    to cart -&nbsp;</span><span class="tf-qty-price">$18.00</span></a>
+                        <form id="quick_add_form" method="POST" action="">
+                            @csrf
+                            <input type="hidden" id="quick_add_slug" name="slug" value="">
+                            <input type="hidden" id="quick_add_form_quantity" name="quantity" value="1">
+                            <input type="hidden" id="quick_add_form_size" name="size" value="">
+
+                            <button type="submit"
+                                class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart">
+                                <span>Add to cart -&nbsp;</span>
+                                <span class="tf-qty-price" id="quick_add_total_price">$18.00</span>
+                            </button>
                             <div class="tf-product-btn-wishlist btn-icon-action">
-                                <i class="icon-heart"></i>
-                                <i class="icon-delete"></i>
-                            </div>
-                            <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                class="tf-product-btn-wishlist box-icon bg_white compare btn-icon-action">
-                                <span class="icon icon-compare"></span>
-                                <span class="icon icon-check"></span>
-                            </a>
-                            <div class="w-100">
-                                <a href="#" class="btns-full">Buy with <img src="images/payments/paypal.png" alt=""></a>
-                                <a href="#" class="payment-more-option">More payment options</a>
+                                <a href="#" id="quick_add_wishlist">
+                                    <i class="icon-heart"></i>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -1461,148 +1402,173 @@
     </div>
     <!-- /modal quick_add -->
 
-    <!-- modal quick_view -->
-    <div class="modal fade modalDemo popup-quickview" id="quick_view">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="header">
-                    <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
-                </div>
-                <div class="wrap">
-                    <div class="tf-product-media-wrap">
-                        <div dir="ltr" class="swiper tf-single-slide">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="item">
-                                        <img src={{ asset("frontend/asset/images/products/orange-1.jpg") }} alt="">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="item">
-                                        <img src={{ asset("frontend/asset/images/products/pink-1.jpg") }} alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-button-next button-style-arrow single-slide-prev"></div>
-                            <div class="swiper-button-prev button-style-arrow single-slide-next"></div>
+    @if ($products)
+        @foreach ($products as $product)
+            @php
+                $photos = explode(',', $product->photo);
+                // Calculate discount
+                $after_discount = $product->price - ($product->price * $product->discount) / 100;
+                // Format price for display (with 2 decimal places)
+                $display_price = number_format($after_discount, 2);
+                // Raw price for JavaScript calculations (without formatting)
+                $raw_price = $after_discount;
+
+                $sizes = $product->size ? array_filter(array_map('trim', explode(',', $product->size))) : [];
+                $first_size = count($sizes) > 0 ? $sizes[0] : '';
+            @endphp
+
+            <!-- modal quick_view -->
+            <div class="modal fade modalDemo popup-quickview" id="quick_view__{{ $product->id }}" tabindex="-1"
+                data-product-id="{{ $product->id }}">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="header">
+                            <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
                         </div>
-                    </div>
-                    <div class="tf-product-info-wrap position-relative">
-                        <div class="tf-product-info-list">
-                            <div class="tf-product-info-title">
-                                <h5><a class="link" href="product-detail.html">Ribbed Tank Top</a></h5>
-                            </div>
-                            <div class="tf-product-info-badges">
-                                <div class="badges text-uppercase">Best seller</div>
-                                <div class="product-status-content">
-                                    <i class="icon-lightning"></i>
-                                    <p class="fw-6">Selling fast! 48 people have this in their carts.</p>
-                                </div>
-                            </div>
-                            <div class="tf-product-info-price">
-                                <div class="price">$18.00</div>
-                            </div>
-                            <div class="tf-product-description">
-                                <p>Nunc arcu faucibus a et lorem eu a mauris adipiscing conubia ac aptent ligula
-                                    facilisis a auctor habitant parturient a a.Interdum fermentum.</p>
-                            </div>
-                            <div class="tf-product-info-variant-picker">
-                                <div class="variant-picker-item">
-                                    <div class="variant-picker-label">
-                                        Color: <span class="fw-6 variant-picker-label-value">Orange</span>
-                                    </div>
-                                    <div class="variant-picker-values">
-                                        <input id="values-orange-1" type="radio" name="color-1" checked>
-                                        <label class="hover-tooltip radius-60" for="values-orange-1"
-                                            data-value="Orange">
-                                            <span class="btn-checkbox bg-color-orange"></span>
-                                            <span class="tooltip">Orange</span>
-                                        </label>
-                                        <input id="values-black-1" type="radio" name="color-1">
-                                        <label class=" hover-tooltip radius-60" for="values-black-1" data-value="Black">
-                                            <span class="btn-checkbox bg-color-black"></span>
-                                            <span class="tooltip">Black</span>
-                                        </label>
-                                        <input id="values-white-1" type="radio" name="color-1">
-                                        <label class="hover-tooltip radius-60" for="values-white-1" data-value="White">
-                                            <span class="btn-checkbox bg-color-white"></span>
-                                            <span class="tooltip">White</span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="variant-picker-item">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="variant-picker-label">
-                                            Size: <span class="fw-6 variant-picker-label-value">S</span>
+                        <div class="wrap">
+                            <div class="tf-product-media-wrap">
+                                @if (count($photos) > 0)
+                                    <div class="product-image-single">
+                                        <div class="item">
+                                            <img src="{{ asset($photos[0]) }}" alt="{{ $product->title }}"
+                                                class="img-fluid">
                                         </div>
-                                        <div class="find-size btn-choose-size fw-6">Find your size</div>
                                     </div>
-                                    <div class="variant-picker-values">
-                                        <input type="radio" name="size-1" id="values-s-1" checked>
-                                        <label class="style-text" for="values-s-1" data-value="S">
-                                            <p>S</p>
-                                        </label>
-                                        <input type="radio" name="size-1" id="values-m-1">
-                                        <label class="style-text" for="values-m-1" data-value="M">
-                                            <p>M</p>
-                                        </label>
-                                        <input type="radio" name="size-1" id="values-l-1">
-                                        <label class="style-text" for="values-l-1" data-value="L">
-                                            <p>L</p>
-                                        </label>
-                                        <input type="radio" name="size-1" id="values-xl-1">
-                                        <label class="style-text" for="values-xl-1" data-value="XL">
-                                            <p>XL</p>
-                                        </label>
+                                @endif
+                            </div>
+
+                            <div class="tf-product-info-wrap position-relative">
+                                <div class="tf-product-info-list">
+                                    <div class="tf-product-info-title">
+                                        <h5>
+                                            <a class="link"
+                                                href="{{ route('product-detail.v1', $product->slug) }}">
+                                                {{ $product->title }}
+                                            </a>
+                                        </h5>
+                                    </div>
+
+                                    <div class="tf-product-info-badges">
+                                        @if ($product->condition)
+                                            <div class="badges text-uppercase">{{ $product->condition }}</div>
+                                        @endif
+                                        @if ($product->stock <= 10 && $product->stock > 0)
+                                            <div class="product-status-content">
+                                                <i class="icon-lightning"></i>
+                                                <p class="fw-6">Only {{ $product->stock }} left in stock!</p>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="tf-product-info-price">
+                                        @if ($product->discount > 0)
+                                            <div class="price-on-sale">${{ number_format($after_discount, 2) }}</div>
+                                            <div class="compare-at-price">${{ number_format($product->price, 2) }}
+                                            </div>
+                                            <div class="badges-on-sale">
+                                                <span>{{ $product->discount }}% OFF</span>
+                                            </div>
+                                        @else
+                                            <div class="price">${{ number_format($product->price, 2) }}</div>
+                                        @endif
+                                    </div>
+
+                                    <div class="tf-product-description">
+                                        <p>{!! html_entity_decode($product->summary) !!}</p>
+                                    </div>
+
+                                    @if (count($sizes) > 0)
+                                        <div class="variant-picker-item">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="variant-picker-label">
+                                                    Size: <span
+                                                        class="fw-6 variant-picker-label-value-{{ $product->id }}">{{ $first_size }}</span>
+                                                </div>
+                                                <!-- FIXED: Changed data-bs-target to match the modal ID -->
+                                                {{-- <a href="#sizeChartModal" data-bs-toggle="modal"
+                                                    class="find-size btn-choose-size fw-6">
+                                                    Find your size
+                                                </a> --}}
+                                            </div>
+                                            <div class="variant-picker-values">
+                                                @foreach ($sizes as $index => $size)
+                                                    @php
+                                                        $sizeId = 'size-' . $product->id . '-' . $index;
+                                                        $isFirst = $index === 0;
+                                                    @endphp
+                                                    <input type="radio" name="size_{{ $product->id }}"
+                                                        id="{{ $sizeId }}" value="{{ $size }}"
+                                                        {{ $isFirst ? 'checked' : '' }} class="size-radio"
+                                                        data-product="{{ $product->id }}">
+                                                    <label for="{{ $sizeId }}" class="style-text">
+                                                        <p>{{ $size }}</p>
+                                                    </label>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <div class="tf-product-info-quantity">
+                                        <div class="quantity-title fw-6">Quantity</div>
+                                        <div class="wg-quantity">
+                                            <span class="btn-quantity minus-btn"
+                                                data-target="quantity-{{ $product->id }}">-</span>
+                                            <input type="text" id="quantity-{{ $product->id }}"
+                                                name="quantity" value="1" min="1"
+                                                max="{{ $product->stock ?? 10 }}" data-price="{{ $raw_price }}"
+                                                data-product="{{ $product->id }}">
+                                            <span class="btn-quantity plus-btn"
+                                                data-target="quantity-{{ $product->id }}">+</span>
+                                        </div>
+                                        <div class="text-muted small mt-1">
+                                            @if ($product->stock > 0)
+                                                {{ $product->stock }} items available
+                                            @else
+                                                <span class="text-danger">Out of stock</span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="tf-product-info-buy-button">
+                                        <form action="{{ route('single-add-to-cart.v1') }}" method="POST"
+                                            id="quickAddForm-{{ $product->id }}">
+                                            @csrf
+                                            <input type="hidden" name="slug" value="{{ $product->slug }}">
+                                            <input type="hidden" name="quantity"
+                                                id="form-quantity-{{ $product->id }}" value="1">
+                                            <input type="hidden" name="size"
+                                                id="form-size-{{ $product->id }}" value="{{ $first_size }}">
+
+                                            @if ($product->stock > 0)
+                                                <button type="submit"
+                                                    class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart">
+                                                    <span>Add to cart -&nbsp;</span>
+                                                    <span class="tf-qty-price-{{ $product->id }}">
+                                                        ${{ number_format($after_discount, 2) }}
+                                                    </span>
+                                                </button>
+                                            @else
+                                                <button type="button"
+                                                    class="tf-btn btn-disabled justify-content-center fw-6 fs-16 flex-grow-1"
+                                                    disabled>
+                                                    Out of Stock
+                                                </button>
+                                            @endif
+                                        </form>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tf-product-info-quantity">
-                                <div class="quantity-title fw-6">Quantity</div>
-                                <div class="wg-quantity">
-                                    <span class="btn-quantity minus-btn">-</span>
-                                    <input type="text" name="number" value="1">
-                                    <span class="btn-quantity plus-btn">+</span>
-                                </div>
-                            </div>
-                            <div class="tf-product-info-buy-button">
-                                <form class="">
-                                    <a href="#"
-                                        class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"><span>Add
-                                            to cart -&nbsp;</span><span class="tf-qty-price">$8.00</span></a>
-                                    <a href="#"
-                                        class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action">
-                                        <span class="icon icon-heart"></span>
-                                        <span class="tooltip">Add to Wishlist</span>
-                                        <span class="icon icon-delete"></span>
-                                    </a>
-                                    <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                        class="tf-product-btn-wishlist hover-tooltip box-icon bg_white compare btn-icon-action">
-                                        <span class="icon icon-compare"></span>
-                                        <span class="tooltip">Add to Compare</span>
-                                        <span class="icon icon-check"></span>
-                                    </a>
-                                    <div class="w-100">
-                                        <a href="#" class="btns-full">Buy with <img src="images/payments/paypal.png"
-                                                alt=""></a>
-                                        <a href="#" class="payment-more-option">More payment options</a>
-                                    </div>
-                                </form>
-                            </div>
-                            <div>
-                                <a href="product-detail.html" class="tf-btn fw-6 btn-line">View full details<i
-                                        class="icon icon-arrow1-top-left"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- /modal quick_view -->
+        @endforeach
+    @endif
 
-    <!-- modal find_size -->
-    <div class="modal fade modalDemo tf-product-modal popup-findsize" id="find_size">
+    <!-- SINGLE size chart modal - placed OUTSIDE the product loop -->
+    <!-- FIXED: Changed ID to match the data-bs-target in the links -->
+    <div class="modal fade modalDemo tf-product-modal popup-findsize" id="sizeChartModal" tabindex="-1"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="header">
@@ -1676,12 +1642,15 @@
                             <div class="title">Waist</div>
                             <p>Measure around the narrowest part of your torso.</p>
                             <div class="title">Low Hip</div>
-                            <p class="mb-0">With your feet together measure around the fullest part of your hips/rear.
+                            <p class="mb-0">With your feet together measure around the fullest part of your
+                                hips/rear.
                             </p>
                         </div>
                         <div>
-                            <img class="sizechart lazyload" data-src="images/shop/products/size_chart2.jpg"
-                                src="images/shop/products/size_chart2.jpg" alt="">
+                            <img class="sizechart lazyload"
+                                data-src="{{ asset('frontend/asset/images/shop/products/size_chart2.jpg') }}"
+                                src="{{ asset('frontend/asset/images/shop/products/size_chart2.jpg') }}"
+                                alt="Size Chart">
                         </div>
                     </div>
                 </div>
@@ -1691,18 +1660,343 @@
     <!-- /modal find_size -->
 
     <!-- Javascript -->
-    <script src={{ asset("frontend/asset/js/bootstrap.min.js") }}></script>
-    <script src={{ asset("frontend/asset/js/jquery.min.js") }}></script>
-    <script src={{ asset("frontend/asset/js/swiper-bundle.min.js") }}></script>
-    <script src={{ asset("frontend/asset/js/carousel.js") }}></script>
-    <script src={{ asset("frontend/asset/js/bootstrap-select.min.js") }}></script>
-    <script src={{ asset("frontend/asset/js/lazysize.min.js") }}></script>
-    <script src={{ asset("frontend/asset/js/bootstrap-select.min.js") }}></script>
-    <script src={{ asset("frontend/asset/js/count-down.js") }}></script>
-    <script src={{ asset("frontend/asset/js/wow.min.js") }}></script>
-    <script src={{ asset("frontend/asset/js/magnific-popup.min.js") }}></script>
-    <script src={{ asset("frontend/asset/js/multiple-modal.js") }}></script>
-    <script src={{ asset("frontend/asset/js/main.js") }}></script>
-    <script src={{ asset("frontend/asset/js/helper.js") }}></script>
+    <script src="{{ asset('frontend/asset/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/bootstrap.min.js') }}"></script>
+
+    <!-- Javascript -->
+    <script src="{{ asset('frontend/asset/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/bootstrap.min.js') }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quick Add Modal functionality
+            const quickAddModal = document.getElementById('quick_add');
+
+            if (quickAddModal) {
+                // Listen for modal show event
+                quickAddModal.addEventListener('show.bs.modal', function(event) {
+                    const button = event.relatedTarget; // Button that triggered the modal
+                    const productCard = button.closest('.card-product');
+
+                    if (productCard) {
+                        populateQuickAddModal(productCard);
+                    }
+                });
+            }
+
+            // Function to populate quick add modal
+            function populateQuickAddModal(productCard) {
+                // Get product data from data attributes
+                const productSlug = productCard.getAttribute('data-product-slug');
+                const productTitle = productCard.getAttribute('data-product-title');
+                const productPrice = parseFloat(productCard.getAttribute('data-product-price'));
+                const originalPrice = parseFloat(productCard.getAttribute('data-product-original-price'));
+                const discount = parseInt(productCard.getAttribute('data-product-discount'));
+
+                // Get elements from product card
+                const imageElement = productCard.querySelector('.img-product');
+                const titleElement = productCard.querySelector('.title');
+                const sizeItems = productCard.querySelectorAll('.size-item');
+                const newPriceElement = productCard.querySelector('.new-price, .current-price');
+                const oldPriceElement = productCard.querySelector('.old-price');
+
+                // Get product link for title
+                const productLink = productCard.querySelector('a[href*="product-detail"]')?.href || '#';
+
+                // Debug logging
+                console.log('Product Data:', {
+                    slug: productSlug,
+                    title: productTitle,
+                    price: productPrice,
+                    originalPrice: originalPrice,
+                    discount: discount
+                });
+
+                // Set title
+                const titleLink = document.getElementById('quick_add_title');
+                titleLink.textContent = productTitle || titleElement?.textContent || 'Product';
+                titleLink.href = productLink;
+
+                // Set image
+                if (imageElement) {
+                    document.getElementById('quick_add_image').src = imageElement.src;
+                    document.getElementById('quick_add_image').alt = imageElement.alt || productTitle;
+                }
+
+                // Set price information
+                const priceElement = document.getElementById('quick_add_price');
+                const salePriceElement = document.getElementById('quick_add_sale_price');
+                const originalPriceElement = document.getElementById('quick_add_original_price');
+                const discountElement = document.getElementById('quick_add_discount');
+                const totalPriceElement = document.getElementById('quick_add_total_price');
+
+                if (discount > 0) {
+                    // Show sale price
+                    salePriceElement.style.display = 'block';
+                    salePriceElement.textContent = '$' + productPrice.toFixed(2);
+
+                    originalPriceElement.style.display = 'block';
+                    originalPriceElement.textContent = '$' + originalPrice.toFixed(2);
+
+                    discountElement.style.display = 'block';
+                    discountElement.textContent = discount + '% OFF';
+
+                    // Hide regular price element
+                    priceElement.style.display = 'none';
+
+                    // Set total price
+                    totalPriceElement.textContent = '$' + productPrice.toFixed(2);
+                } else {
+                    // Hide sale elements
+                    salePriceElement.style.display = 'none';
+                    originalPriceElement.style.display = 'none';
+                    discountElement.style.display = 'none';
+
+                    // Show regular price
+                    priceElement.style.display = 'block';
+                    priceElement.textContent = '$' + productPrice.toFixed(2);
+
+                    // Set total price
+                    totalPriceElement.textContent = '$' + productPrice.toFixed(2);
+                }
+
+                // Set slug and form action
+                if (productSlug) {
+                    document.getElementById('quick_add_slug').value = productSlug;
+                    // Use the correct route - adjust based on your actual route
+                    const addToCartRoute = "{{ route('add-to-cart.v1', 'SLUG') }}".replace('SLUG', productSlug);
+                    document.getElementById('quick_add_form').action = addToCartRoute;
+
+                    // Set wishlist link
+                    const wishlistRoute = "{{ route('add-to-wishlist.v1', 'SLUG') }}".replace('SLUG', productSlug);
+                    document.getElementById('quick_add_wishlist').href = wishlistRoute;
+                }
+
+                // Populate sizes
+                const sizesContainer = document.getElementById('quick_add_sizes');
+                const sizesSection = document.getElementById('quick_add_sizes_section');
+
+                // Clear existing sizes
+                sizesContainer.innerHTML = '';
+
+                if (sizeItems.length > 0) {
+                    sizeItems.forEach((sizeItem, index) => {
+                        const size = sizeItem.textContent.trim();
+                        const sizeId = `quick_size_${Date.now()}_${index}`;
+
+                        // Create radio input
+                        const radio = document.createElement('input');
+                        radio.type = 'radio';
+                        radio.name = 'quick_size';
+                        radio.id = sizeId;
+                        radio.value = size;
+                        radio.className = 'size-radio';
+
+                        // Select first size by default
+                        if (index === 0) {
+                            radio.checked = true;
+                            document.getElementById('quick_add_selected_size').textContent = size;
+                            document.getElementById('quick_add_form_size').value = size;
+                        }
+
+                        // Create label
+                        const label = document.createElement('label');
+                        label.htmlFor = sizeId;
+                        label.className = 'style-text';
+                        label.innerHTML = `<p>${size}</p>`;
+
+                        // Add to container
+                        sizesContainer.appendChild(radio);
+                        sizesContainer.appendChild(label);
+
+                        // Add change event
+                        radio.addEventListener('change', function() {
+                            document.getElementById('quick_add_selected_size').textContent = this
+                                .value;
+                            document.getElementById('quick_add_form_size').value = this.value;
+                        });
+                    });
+
+                    sizesSection.style.display = 'block';
+                } else {
+                    sizesSection.style.display = 'none';
+                    document.getElementById('quick_add_form_size').value = '';
+                }
+
+                // Reset quantity to 1
+                document.getElementById('quick_add_quantity').value = 1;
+                document.getElementById('quick_add_form_quantity').value = 1;
+
+                // Update total price
+                updateQuickAddTotalPrice();
+            }
+
+            // Quantity controls for quick add modal
+            const quickAddPlus = document.getElementById('quick_add_plus');
+            const quickAddMinus = document.getElementById('quick_add_minus');
+            const quickAddQuantity = document.getElementById('quick_add_quantity');
+
+            if (quickAddPlus) {
+                quickAddPlus.addEventListener('click', function() {
+                    const quantityInput = document.getElementById('quick_add_quantity');
+                    const currentQty = parseInt(quantityInput.value) || 1;
+                    quantityInput.value = currentQty + 1;
+                    document.getElementById('quick_add_form_quantity').value = quantityInput.value;
+                    updateQuickAddTotalPrice();
+                });
+            }
+
+            if (quickAddMinus) {
+                quickAddMinus.addEventListener('click', function() {
+                    const quantityInput = document.getElementById('quick_add_quantity');
+                    const currentQty = parseInt(quantityInput.value) || 1;
+                    if (currentQty > 1) {
+                        quantityInput.value = currentQty - 1;
+                        document.getElementById('quick_add_form_quantity').value = quantityInput.value;
+                        updateQuickAddTotalPrice();
+                    }
+                });
+            }
+
+            if (quickAddQuantity) {
+                quickAddQuantity.addEventListener('input', function() {
+                    const value = parseInt(this.value) || 1;
+                    if (value < 1) this.value = 1;
+                    document.getElementById('quick_add_form_quantity').value = this.value;
+                    updateQuickAddTotalPrice();
+                });
+            }
+
+            // Function to update total price in quick add modal
+            function updateQuickAddTotalPrice() {
+                // Try to get price from different possible locations
+                let price = 0;
+
+                // Check sale price first
+                const salePriceElement = document.getElementById('quick_add_sale_price');
+                if (salePriceElement && salePriceElement.style.display !== 'none') {
+                    price = parseFloat(salePriceElement.textContent.replace('$', '').replace(',', ''));
+                }
+                // Check regular price
+                else {
+                    const priceElement = document.getElementById('quick_add_price');
+                    if (priceElement) {
+                        price = parseFloat(priceElement.textContent.replace('$', '').replace(',', ''));
+                    }
+                }
+
+                const quantityInput = document.getElementById('quick_add_quantity');
+                const quantity = parseInt(quantityInput.value) || 1;
+                const total = price * quantity;
+
+                const totalPriceElement = document.getElementById('quick_add_total_price');
+                if (totalPriceElement) {
+                    totalPriceElement.textContent = '$' + total.toFixed(2);
+                }
+            }
+
+            // Handle quantity controls for ALL quick view modals
+            document.addEventListener('click', function(e) {
+                // Handle plus buttons in quick view modals
+                if (e.target.classList.contains('plus-btn')) {
+                    const targetId = e.target.getAttribute('data-target');
+                    if (targetId) {
+                        const quantityInput = document.getElementById(targetId);
+                        if (quantityInput) {
+                            let currentQty = parseInt(quantityInput.value) || 1;
+                            const max = parseInt(quantityInput.getAttribute('max')) || 999;
+                            if (currentQty < max) {
+                                currentQty++;
+                                quantityInput.value = currentQty;
+                                updateProductQuantity(quantityInput);
+                            }
+                        }
+                    }
+                }
+
+                // Handle minus buttons in quick view modals
+                if (e.target.classList.contains('minus-btn')) {
+                    const targetId = e.target.getAttribute('data-target');
+                    if (targetId) {
+                        const quantityInput = document.getElementById(targetId);
+                        if (quantityInput) {
+                            let currentQty = parseInt(quantityInput.value) || 1;
+                            if (currentQty > 1) {
+                                currentQty--;
+                                quantityInput.value = currentQty;
+                                updateProductQuantity(quantityInput);
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Handle input changes for quantity in quick view modals
+            document.addEventListener('input', function(e) {
+                if (e.target && e.target.id && e.target.id.startsWith('quantity-')) {
+                    updateProductQuantity(e.target);
+                }
+            });
+
+            // Handle size radio changes in quick view modals
+            document.addEventListener('change', function(e) {
+                if (e.target && e.target.classList.contains('size-radio')) {
+                    const productId = e.target.getAttribute('data-product');
+                    const size = e.target.value;
+
+                    // Update displayed size label
+                    const sizeLabel = document.querySelector(`.variant-picker-label-value-${productId}`);
+                    if (sizeLabel) {
+                        sizeLabel.textContent = size;
+                    }
+
+                    // Update hidden form field
+                    const formSizeInput = document.getElementById(`form-size-${productId}`);
+                    if (formSizeInput) {
+                        formSizeInput.value = size;
+                    }
+                }
+            });
+
+            // Update product quantity and price in quick view modals
+            function updateProductQuantity(input) {
+                const productId = input.getAttribute('data-product');
+                const quantity = parseInt(input.value) || 1;
+
+                // Update hidden form field
+                const formQuantityInput = document.getElementById(`form-quantity-${productId}`);
+                if (formQuantityInput) {
+                    formQuantityInput.value = quantity;
+                }
+
+                // Update displayed price
+                const price = parseFloat(input.getAttribute('data-price')) || 0;
+                const totalPrice = price * quantity;
+                const priceElement = document.querySelector(`.tf-qty-price-${productId}`);
+                if (priceElement) {
+                    priceElement.textContent = '$' + totalPrice.toFixed(2);
+                }
+            }
+
+            // Initialize quantity values for all quick view modals
+            document.querySelectorAll('input[id^="quantity-"]').forEach(input => {
+                updateProductQuantity(input);
+            });
+        });
+    </script>
+    <!-- Load other scripts -->
+    <!-- Remove carousel.js if you don't need swiper -->
+    {{-- <script src="{{ asset('frontend/asset/js/carousel.js') }}"></script> --}}
+    <script src="{{ asset('frontend/asset/js/lazysize.min.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/bootstrap-select.min.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/count-down.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/wow.min.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/nouislider.min.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/multiple-modal.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/shop.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/main.js') }}"></script>
+    <script src="{{ asset('frontend/asset/js/helper.js') }}"></script>
 </body>
+
 </html>

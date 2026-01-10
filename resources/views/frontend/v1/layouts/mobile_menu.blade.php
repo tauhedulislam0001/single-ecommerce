@@ -16,6 +16,49 @@
                         </a>
                         <div id="dropdown-menu-three" class="collapse">
                             <ul class="sub-nav-menu" id="sub-menu-navigation1">
+                                @php
+                                    $categories = App\Models\Category::where('status', 'active')
+                                        ->orderBy('title', 'ASC')
+                                        ->get();
+
+                                    $sub_category = App\Models\Category::where('status', 'active')
+                                        ->where('is_parent', 0)
+                                        ->orderBy('title', 'ASC')
+                                        ->get();
+
+                                    $bestSellerProducts = App\Models\Product::where('status', 'active')
+                                        ->orderBy('id', 'DESC')
+                                        ->limit(4)
+                                        ->get();
+
+                                    $megaMenuCategories = App\Models\Category::where('status', 'active')
+                                        ->where('is_parent', 1)
+                                        ->where('is_megamenu', 1)
+                                        ->orderBy('title', 'ASC')
+                                        ->with(['products' => function($query) {
+                                            $query->where('status', 'active')
+                                                ->orderBy('id', 'DESC')
+                                                ->limit(4);
+                                        }])
+                                        ->get();
+
+                                        // Mega menu brands with eager loading
+                                    $megaMenuBrands = App\Models\Brand::where('status', 'active')
+                                        ->orderBy('title', 'ASC')
+                                        ->limit(3)
+                                        ->with(['products' => function($query) {
+                                            $query->where('status', 'active')
+                                                    ->orderBy('id', 'DESC')
+                                                    ->limit(4);
+                                            }])
+                                            ->get();
+
+                                    $bestBrandSellerProducts = App\Models\Product::where('status', 'active')
+                                        ->where('condition', 'hot')
+                                        ->orderBy('id', 'DESC')
+                                        ->limit(4)
+                                        ->get();
+                                @endphp
 
                                 <!-- Categories Loop - Dynamically populate categories -->
                                 @foreach ($categories as $category)

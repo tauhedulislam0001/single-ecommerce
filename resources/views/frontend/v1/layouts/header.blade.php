@@ -116,6 +116,49 @@
                         </a>
                         <div class="list-categories-inner toolbar-shop-mobile">
                             <ul class="nav-ul-mb" id="wrapper-menu-navigation">
+                                @php
+                                    $categories = App\Models\Category::where('status', 'active')
+                                        ->orderBy('title', 'ASC')
+                                        ->get();
+
+                                    $sub_category = App\Models\Category::where('status', 'active')
+                                        ->where('is_parent', 0)
+                                        ->orderBy('title', 'ASC')
+                                        ->get();
+
+                                    $bestSellerProducts = App\Models\Product::where('status', 'active')
+                                        ->orderBy('id', 'DESC')
+                                        ->limit(4)
+                                        ->get();
+
+                                    $megaMenuCategories = App\Models\Category::where('status', 'active')
+                                        ->where('is_parent', 1)
+                                        ->where('is_megamenu', 1)
+                                        ->orderBy('title', 'ASC')
+                                        ->with([
+                                            'products' => function ($query) {
+                                                $query->where('status', 'active')->orderBy('id', 'DESC')->limit(4);
+                                            },
+                                        ])
+                                        ->get();
+
+                                    // Mega menu brands with eager loading
+                                    $megaMenuBrands = App\Models\Brand::where('status', 'active')
+                                        ->orderBy('title', 'ASC')
+                                        ->limit(3)
+                                        ->with([
+                                            'products' => function ($query) {
+                                                $query->where('status', 'active')->orderBy('id', 'DESC')->limit(4);
+                                            },
+                                        ])
+                                        ->get();
+
+                                    $bestBrandSellerProducts = App\Models\Product::where('status', 'active')
+                                        ->where('condition', 'hot')
+                                        ->orderBy('id', 'DESC')
+                                        ->limit(4)
+                                        ->get();
+                                @endphp
                                 @foreach ($categories as $category)
                                     @if ($category->is_parent == 1)
                                         <!-- Show expandable menu for PARENT categories (they have children) -->
@@ -186,7 +229,8 @@
                                                     <div class="menu-heading">Shop By</div>
                                                     <ul class="menu-list">
                                                         <li>
-                                                            <a href="" class="menu-link-text link">
+                                                            <a href="{{ route('product-list.v1') }}"
+                                                                class="menu-link-text link">
                                                                 <strong>All Products</strong>
                                                             </a>
                                                         </li>
@@ -334,7 +378,8 @@
                                                     <div class="menu-heading">Shop By</div>
                                                     <ul class="menu-list">
                                                         <li>
-                                                            <a href="" class="menu-link-text link">
+                                                            <a href="{{ route('product-list.v1') }}"
+                                                                class="menu-link-text link">
                                                                 <strong>All Products</strong>
                                                             </a>
                                                         </li>
@@ -396,32 +441,37 @@
                                                                             </a>
                                                                             <div class="list-product-btn absolute-2">
                                                                                 <a href="#quick_add"
-                                                                                data-bs-toggle="modal"
-                                                                                class="box-icon bg_white quick-add tf-btn-loading">
+                                                                                    data-bs-toggle="modal"
+                                                                                    class="box-icon bg_white quick-add tf-btn-loading">
                                                                                     <span class="icon icon-bag"></span>
                                                                                     <span class="tooltip">Quick
                                                                                         Add</span>
                                                                                 </a>
                                                                                 <a href="#"
-                                                                                class="box-icon bg_white wishlist btn-icon-action">
-                                                                                    <span class="icon icon-heart"></span>
+                                                                                    class="box-icon bg_white wishlist btn-icon-action">
+                                                                                    <span
+                                                                                        class="icon icon-heart"></span>
                                                                                     <span class="tooltip">Add to
                                                                                         Wishlist</span>
-                                                                                    <span class="icon icon-delete"></span>
+                                                                                    <span
+                                                                                        class="icon icon-delete"></span>
                                                                                 </a>
                                                                                 <a href="#compare"
-                                                                                data-bs-toggle="offcanvas"
-                                                                                aria-controls="offcanvasLeft"
-                                                                                class="box-icon bg_white compare btn-icon-action">
-                                                                                    <span class="icon icon-compare"></span>
+                                                                                    data-bs-toggle="offcanvas"
+                                                                                    aria-controls="offcanvasLeft"
+                                                                                    class="box-icon bg_white compare btn-icon-action">
+                                                                                    <span
+                                                                                        class="icon icon-compare"></span>
                                                                                     <span class="tooltip">Add to
                                                                                         Compare</span>
-                                                                                    <span class="icon icon-check"></span>
+                                                                                    <span
+                                                                                        class="icon icon-check"></span>
                                                                                 </a>
                                                                                 <a href="#quick_view"
-                                                                                data-bs-toggle="modal"
-                                                                                class="box-icon bg_white quickview tf-btn-loading">
-                                                                                    <span class="icon icon-view"></span>
+                                                                                    data-bs-toggle="modal"
+                                                                                    class="box-icon bg_white quickview tf-btn-loading">
+                                                                                    <span
+                                                                                        class="icon icon-view"></span>
                                                                                     <span class="tooltip">Quick
                                                                                         View</span>
                                                                                 </a>
@@ -466,13 +516,17 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="menu-item {{Request::path()=='contact' ? 'active' : ''}}"><a href="{{route('contact')}}" class="item-link">Contact Us</a></li>
+                            <li class="menu-item {{ Request::path() == 'contact' ? 'active' : '' }}"><a
+                                    href="{{ route('contact') }}" class="item-link">Contact Us</a></li>
+                            <li class="menu-item {{ Request::path() == 'product-list' ? 'active' : '' }}"><a
+                                    href="{{ route('product-list.v1') }}" class="item-link">Product Lists</a></li>
                             <li class="menu-item position-relative">
                                 <a href="#" class="item-link">Pages<i class="icon icon-arrow-down"></i></a>
                                 <div class="sub-menu submenu-default">
                                     <ul class="menu-list">
                                         <li>
-                                            <a href="about-us.html" class="menu-link-text link text_black-2">About
+                                            <a href="{{ route('about-us.v1') }}"
+                                                class="menu-link-text link text_black-2">About
                                                 us</a>
                                         </li>
                                         <li class="menu-item-2">

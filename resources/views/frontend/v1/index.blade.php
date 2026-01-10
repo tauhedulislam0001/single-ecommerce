@@ -61,7 +61,7 @@
                 <div dir="ltr" class="swiper tf-sw-testimonial" data-preview="3" data-tablet="2" data-mobile="1"
                     data-space-lg="30" data-space-md="15">
                     <div class="swiper-wrapper">
-                        @foreach ($allProducts as $item)
+                        @foreach ($hotProducts as $item)
                             <div class="swiper-slide">
                                 <div class="collection-item-v4 hover-img" style="height: 700px; width: 100%;">
                                     <div class="collection-inner">
@@ -135,32 +135,25 @@
     <!-- banner -->
     <section class="flat-spacing-25 pb_0">
         <div class="container">
-            @if ($single_blog != null)
-                <div
-                    class="widget-card-store type-3 hover-img radius-20 overflow-hidden align-items-center tf-grid-layout md-col-2 bg_light-blue-2">
-                    <div class="store-item-info">
-                        <h5 class="store-heading font-libre-baskerville fw-7">{!! $single_blog->title !!}</h5>
-                        <div class="description">
-                            <p class="">{!! $single_blog->quote !!}</p>
-                        </div>
-                        <div class="wow fadeInUp" data-wow-delay="0s">
-                            <a href="shop-default.html" class="tf-btn btn-line fw-6">Shop Collection<i
-                                    class="icon icon-arrow1-top-left"></i></a>
-                        </div>
+            <div
+                class="widget-card-store type-3 hover-img radius-20 overflow-hidden align-items-center tf-grid-layout md-col-2 bg_light-blue-2">
+                <div class="store-item-info">
+                    <h5 class="store-heading font-libre-baskerville fw-7">{!! $single_blog->title !!}</h5>
+                    <div class="description">
+                        <p class="">{!! $single_blog->quote !!}</p>
                     </div>
-                    <div class="store-img img-style">
-                        <img class="lazyload" data-src={{ asset($single_blog->photo) }}
-                            src={{ asset($single_blog->photo) }} alt="store-img">
+                    <div class="wow fadeInUp" data-wow-delay="0s">
+                        <a href="shop-default.html" class="tf-btn btn-line fw-6">Shop Collection<i
+                                class="icon icon-arrow1-top-left"></i></a>
                     </div>
                 </div>
-            @else
-                <div class="alert alert-info mt-3">
-                    <p class="mb-0">No trending products available at the moment.</p>
+                <div class="store-img img-style">
+                    <img class="lazyload" data-src={{ asset($single_blog->photo) }} src={{ asset($single_blog->photo) }}
+                        alt="store-img">
                 </div>
-            @endif
+            </div>
         </div>
     </section>
-
     <!-- /banner -->
 
     <!-- tab -->
@@ -240,6 +233,160 @@
     </section>
     <!-- /tab -->
 
+    <!-- New Products Section -->
+    <section class="flat-spacing-12 mt-5">
+        <div class="container">
+            <div class="flat-animate-tab">
+                <div class="flat-title flex-row justify-content-between align-items-center px-0 flex-wrap wow fadeInUp"
+                    data-wow-delay="0s">
+                    <h3 class="title font-libre-baskerville fw-7 text-primary">New Arrivals</h3>
+                    @if ($categoriesForTabs->count() > 0)
+                        <ul class="widget-tab-5 d-flex wow fadeInUp mb-0" data-wow-delay="0s" role="tablist">
+                            <li class="nav-tab-item" role="presentation">
+                                <a href="#all-new" class="active fw-6 rounded-0 bg-primary text-white"
+                                    data-bs-toggle="tab">
+                                    All New Arrivals ({{ $allNewProducts->count() }})
+                                </a>
+                            </li>
+                            @foreach ($categoriesForTabs as $category)
+                                @php
+                                    $categoryProductCount = isset($newProductsByCategory[$category->title])
+                                        ? $newProductsByCategory[$category->title]->count()
+                                        : 0;
+                                @endphp
+                                @if ($categoryProductCount > 0)
+                                    <li class="nav-tab-item" role="presentation">
+                                        <a href="#new-{{ \Illuminate\Support\Str::slug($category->title) }}"
+                                            class="fw-6 rounded-0" data-bs-toggle="tab">
+                                            {{ $category->title }} ({{ $categoryProductCount }})
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
+
+                @if ($allNewProducts->count() > 0 || collect($newProductsByCategory)->flatten()->count() > 0)
+                    <div class="tab-content">
+                        <!-- All New Products Tab -->
+                        <div class="tab-pane active show" id="all-new" role="tabpanel">
+                            <div class="grid-layout" data-grid="grid-6">
+                                @forelse($allNewProducts as $product)
+                                    @include('frontend.v1.partials.product_card', ['product' => $product])
+                                @empty
+                                    <div class="col-12 text-center py-5">
+                                        <p class="text-muted">No new products found.</p>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!-- Category New Products Tabs -->
+                        @foreach ($categoriesForTabs as $category)
+                            @php
+                                $categorySlug = \Illuminate\Support\Str::slug($category->title);
+                                $categoryProducts = $newProductsByCategory[$category->title] ?? collect();
+                            @endphp
+                            @if ($categoryProducts->count() > 0)
+                                <div class="tab-pane" id="new-{{ $categorySlug }}" role="tabpanel">
+                                    <div class="grid-layout" data-grid="grid-6">
+                                        @foreach ($categoryProducts as $product)
+                                            @include('frontend.v1.partials.product_card', [
+                                                'product' => $product,
+                                            ])
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                @else
+                    <div class="alert alert-info mt-3">
+                        <p class="mb-0">No new arrivals available at the moment.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
+
+    <!-- Default Products Section -->
+    <section class="flat-spacing-12 mt-5 bg-light py-4 rounded">
+        <div class="container">
+            <div class="flat-animate-tab">
+                <div class="flat-title flex-row justify-content-between align-items-center px-0 flex-wrap wow fadeInUp"
+                    data-wow-delay="0s">
+                    <h3 class="title font-libre-baskerville fw-7 text-success">Regular Products</h3>
+                    @if ($categoriesForTabs->count() > 0)
+                        <ul class="widget-tab-5 d-flex wow fadeInUp mb-0" data-wow-delay="0s" role="tablist">
+                            <li class="nav-tab-item" role="presentation">
+                                <a href="#all-default" class="active fw-6 rounded-0 bg-success text-white"
+                                    data-bs-toggle="tab">
+                                    All Regular Products ({{ $allDefaultProducts->count() }})
+                                </a>
+                            </li>
+                            @foreach ($categoriesForTabs as $category)
+                                @php
+                                    $categoryProductCount = isset($defaultProductsByCategory[$category->title])
+                                        ? $defaultProductsByCategory[$category->title]->count()
+                                        : 0;
+                                @endphp
+                                @if ($categoryProductCount > 0)
+                                    <li class="nav-tab-item" role="presentation">
+                                        <a href="#default-{{ \Illuminate\Support\Str::slug($category->title) }}"
+                                            class="fw-6 rounded-0" data-bs-toggle="tab">
+                                            {{ $category->title }} ({{ $categoryProductCount }})
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
+
+                @if ($allDefaultProducts->count() > 0 || collect($defaultProductsByCategory)->flatten()->count() > 0)
+                    <div class="tab-content">
+                        <!-- All Default Products Tab -->
+                        <div class="tab-pane active show" id="all-default" role="tabpanel">
+                            <div class="grid-layout" data-grid="grid-6">
+                                @forelse($allDefaultProducts as $product)
+                                    @include('frontend.v1.partials.product_card', ['product' => $product])
+                                @empty
+                                    <div class="col-12 text-center py-5">
+                                        <p class="text-muted">No regular products found.</p>
+                                    </div>
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!-- Category Default Products Tabs -->
+                        @foreach ($categoriesForTabs as $category)
+                            @php
+                                $categorySlug = \Illuminate\Support\Str::slug($category->title);
+                                $categoryProducts = $defaultProductsByCategory[$category->title] ?? collect();
+                            @endphp
+                            @if ($categoryProducts->count() > 0)
+                                <div class="tab-pane" id="default-{{ $categorySlug }}" role="tabpanel">
+                                    <div class="grid-layout" data-grid="grid-6">
+                                        @foreach ($categoryProducts as $product)
+                                            @include('frontend.v1.partials.product_card', [
+                                                'product' => $product,
+                                            ])
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                @else
+                    <div class="alert alert-info mt-3">
+                        <p class="mb-0">No regular products available at the moment.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
+
     <!-- Banner Collection -->
     <section class="">
         <div class="container hover-img">
@@ -273,486 +420,46 @@
                     data-mobile="2" data-space-lg="30" data-space-md="15" data-pagination="2" data-pagination-md="3"
                     data-pagination-lg="3">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-1.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-1.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
+                        @foreach ($allProducts as $row)
+                            <div class="swiper-slide">
+                                <div class="card-product none-hover">
+                                    <div class="card-product-wrapper">
+                                        <a href="product-detail.html" class="product-img">
+                                            <img class="lazyload img-product" data-src={{ asset($row->photo) }}
+                                                src={{ asset($row->photo) }} alt="image-product">
                                         </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
+                                        <div class="list-product-btn absolute-2">
+                                            <a href="#quick_add" data-bs-toggle="modal"
+                                                class="box-icon bg_white quick-add tf-btn-loading">
+                                                <span class="icon icon-bag"></span>
+                                                <span class="tooltip">Quick Add</span>
+                                            </a>
+                                            <a href="#" class="box-icon bg_white wishlist btn-icon-action">
+                                                <span class="icon icon-heart"></span>
+                                                <span class="tooltip">Add to Wishlist</span>
+                                                <span class="icon icon-delete"></span>
+                                            </a>
+                                            <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
+                                                class="box-icon bg_white compare btn-icon-action">
+                                                <span class="icon icon-compare"></span>
+                                                <span class="tooltip">Add to Compare</span>
+                                                <span class="icon icon-check"></span>
+                                            </a>
+                                            <a href="#quick_view" data-bs-toggle="modal"
+                                                class="box-icon bg_white quickview tf-btn-loading">
+                                                <span class="icon icon-view"></span>
+                                                <span class="tooltip">Quick View</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-product-info">
+                                        <a href="#" class="link text_black-2">By {{ $row->brand_name }}</a>
+                                        <a href="product-detail.html" class="title link">{{ $row->title }}</a>
+                                        <span class="price">${{ $row->price }}</span>
                                     </div>
                                 </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">Burke Clete</a>
-                                    <span class="price">$138.00</span>
-                                </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-2.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-2.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">Everytime Vacation Some</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-3.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-3.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">Funny a noval Story</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-4.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-4.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">Greg Iles</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-5.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-5.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">Heartless Hunter</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-6.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-6.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">Everytime Vacation Some</a>
-                                    <a href="product-detail.html" class="title link">House os Flame and Shadow</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-7.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-7.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">Look on the Bright Side</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-8.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-8.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">My Mama Cass</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-9.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-9.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">Queen of Shadow</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-10.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-10.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">She's not Sorry</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-11.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-11.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">By Emily Henry</a>
-                                    <a href="product-detail.html" class="title link">The new meno pause</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="card-product none-hover">
-                                <div class="card-product-wrapper">
-                                    <a href="product-detail.html" class="product-img">
-                                        <img class="lazyload img-product"
-                                            data-src={{ asset('frontend/asset/images/products/book-store-12.jpg') }}
-                                            src={{ asset('frontend/asset/images/products/book-store-12.jpg') }}
-                                            alt="image-product">
-                                    </a>
-                                    <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal"
-                                            class="box-icon bg_white quick-add tf-btn-loading">
-                                            <span class="icon icon-bag"></span>
-                                            <span class="tooltip">Quick Add</span>
-                                        </a>
-                                        <a href="#" class="box-icon bg_white wishlist btn-icon-action">
-                                            <span class="icon icon-heart"></span>
-                                            <span class="tooltip">Add to Wishlist</span>
-                                            <span class="icon icon-delete"></span>
-                                        </a>
-                                        <a href="#compare" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft"
-                                            class="box-icon bg_white compare btn-icon-action">
-                                            <span class="icon icon-compare"></span>
-                                            <span class="tooltip">Add to Compare</span>
-                                            <span class="icon icon-check"></span>
-                                        </a>
-                                        <a href="#quick_view" data-bs-toggle="modal"
-                                            class="box-icon bg_white quickview tf-btn-loading">
-                                            <span class="icon icon-view"></span>
-                                            <span class="tooltip">Quick View</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="card-product-info">
-                                    <a href="#" class="link text_black-2">Everytime Vacation Some</a>
-                                    <a href="product-detail.html" class="title link">The Next MRS. Parrish</a>
-                                    <span class="price">$138.00</span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

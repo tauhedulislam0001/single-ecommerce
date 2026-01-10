@@ -11,6 +11,7 @@ use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\Cart;
 use App\Models\Brand;
+use App\Models\Settings;
 use App\User;
 use Auth;
 use Session;
@@ -50,6 +51,7 @@ class FrontendController extends Controller
         // Get all active products (for "All products" tab)
         $allProducts = Product::where('status', 'active')
             ->orderBy('id', 'DESC')
+            ->limit(14)
             ->get();
 
         // Get categories with product counts
@@ -136,6 +138,13 @@ class FrontendController extends Controller
             ->limit(4)
             ->get();
 
+        // Get best seller products
+        $hotProducts = Product::where('status', 'active')
+            ->where('condition', 'hot')
+            ->orderBy('id', 'DESC')
+            ->limit(12)
+            ->get();
+
         $bestSellerProducts = Product::where('status', 'active')
             ->orderBy('id', 'DESC')
             ->limit(4)
@@ -152,6 +161,39 @@ class FrontendController extends Controller
             ->orderBy('id', 'DESC')
             ->first();
 
+        // 1. Get ALL new condition products
+        $allNewProducts = Product::where('status', 'active')
+            ->where('condition', 'new')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        // 2. Get new products grouped by category
+        $newProductsByCategory = [];
+        foreach ($categoriesForTabs as $category) {
+            $newProductsByCategory[$category->title] = Product::where('status', 'active')
+                ->where('condition', 'new')
+                ->where('cat_id', $category->id)
+                ->orderBy('id', 'DESC')
+                ->get();
+        }
+
+        // 3. Get ALL default condition products
+        $allDefaultProducts = Product::where('status', 'active')
+            ->where('condition', 'default')
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        // 4. Get default products grouped by category
+        $defaultProductsByCategory = [];
+        foreach ($categoriesForTabs as $category) {
+            $defaultProductsByCategory[$category->title] = Product::where('status', 'active')
+                ->where('condition', 'default')
+                ->where('cat_id', $category->id)
+                ->orderBy('id', 'DESC')
+                ->get();
+        }
+
+
         return view('frontend.v1.index', [
             'featured' => $featured,
             'posts' => $posts,
@@ -167,15 +209,23 @@ class FrontendController extends Controller
             'megaMenuCategories' => $megaMenuCategories,
             'bestSellerProducts' => $bestSellerProducts,
             'bestBrandSellerProducts' => $bestBrandSellerProducts,
+            'hotProducts' => $hotProducts,
             'single_blog' => $single_blog,
             'bestTrendingProducts' => $bestTrendingProducts,
-            'megaMenuBrands' => $megaMenuBrands
+            'megaMenuBrands' => $megaMenuBrands,
+
+            // Add new parameters
+            'allNewProducts' => $allNewProducts,
+            'newProductsByCategory' => $newProductsByCategory,
+            'allDefaultProducts' => $allDefaultProducts,
+            'defaultProductsByCategory' => $defaultProductsByCategory,
         ]);
     }
 
     public function aboutUs()
     {
-        return view('frontend.pages.about-us');
+        $settings = Settings::get();
+        return view('frontend.v1.pages.about-us')->with('settings', $settings);
     }
 
     public function contact()
@@ -240,51 +290,95 @@ class FrontendController extends Controller
     }
     public function productLists()
     {
-        $products = Product::query();
+        $products = Product::query()->where('status', 'active');
 
+        // Filter by category
         if (!empty($_GET['category'])) {
             $slug = explode(',', $_GET['category']);
-            // dd($slug);
             $cat_ids = Category::select('id')->whereIn('slug', $slug)->pluck('id')->toArray();
-            // dd($cat_ids);
-            $products->whereIn('cat_id', $cat_ids)->paginate;
-            // return $products;
+            $products->whereIn('cat_id', $cat_ids);
         }
+
+        // Filter by brand
         if (!empty($_GET['brand'])) {
             $slugs = explode(',', $_GET['brand']);
             $brand_ids = Brand::select('id')->whereIn('slug', $slugs)->pluck('id')->toArray();
-            return $brand_ids;
             $products->whereIn('brand_id', $brand_ids);
         }
-        if (!empty($_GET['sortBy'])) {
-            if ($_GET['sortBy'] == 'title') {
-                $products = $products->where('status', 'active')->orderBy('title', 'ASC');
-            }
-            if ($_GET['sortBy'] == 'price') {
-                $products = $products->orderBy('price', 'ASC');
-            }
-        }
 
+        // Filter by price range
         if (!empty($_GET['price'])) {
             $price = explode('-', $_GET['price']);
-            // return $price;
-            // if(isset($price[0]) && is_numeric($price[0])) $price[0]=floor(Helper::base_amount($price[0]));
-            // if(isset($price[1]) && is_numeric($price[1])) $price[1]=ceil(Helper::base_amount($price[1]));
-
-            $products->whereBetween('price', $price);
+            // Ensure both values are numeric
+            if (isset($price[0]) && isset($price[1]) && is_numeric($price[0]) && is_numeric($price[1])) {
+                $products->whereBetween('price', [(float)$price[0], (float)$price[1]]);
+            }
         }
 
-        $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
-        // Sort by number
-        if (!empty($_GET['show'])) {
-            $products = $products->where('status', 'active')->paginate($_GET['show']);
+        // Sorting
+        if (!empty($_GET['sortBy'])) {
+            switch ($_GET['sortBy']) {
+                case 'title':
+                    $products->orderBy('title', 'ASC');
+                    break;
+                case 'price':
+                    $products->orderBy('price', 'ASC');
+                    break;
+                case 'price-desc':
+                    $products->orderBy('price', 'DESC');
+                    break;
+                case 'latest':
+                    $products->orderBy('created_at', 'DESC');
+                    break;
+                case 'category':
+                    // If you want to sort by category name, you need a join
+                    $products->join('categories', 'products.cat_id', '=', 'categories.id')
+                        ->orderBy('categories.title', 'ASC')
+                        ->select('products.*');
+                    break;
+                case 'brand':
+                    // If you want to sort by brand name, you need a join
+                    $products->join('brands', 'products.brand_id', '=', 'brands.id')
+                        ->orderBy('brands.title', 'ASC')
+                        ->select('products.*');
+                    break;
+            }
         } else {
-            $products = $products->where('status', 'active')->paginate(6);
+            // Default sorting
+            $products->orderBy('created_at', 'DESC');
         }
-        // Sort by name , price, category
 
+        // Get recent products
+        $recent_products = Product::where('status', 'active')
+            ->orderBy('id', 'DESC')
+            ->limit(3)
+            ->get();
 
-        return view('frontend.pages.product-lists')->with('products', $products)->with('recent_products', $recent_products);
+        // Pagination
+        $perPage = !empty($_GET['show']) ? (int)$_GET['show'] : 6;
+        $products = $products->paginate($perPage);
+
+        // Get all categories with counts for sidebar
+        $menu = Category::getAllParentWithChild();
+
+        // Pre-calculate product counts for categories
+        $productCounts = Product::where('status', 'active')
+            ->select('cat_id', \DB::raw('COUNT(*) as count'))
+            ->groupBy('cat_id')
+            ->pluck('count', 'cat_id')
+            ->toArray();
+
+        // Get all brands for sidebar
+        $brands = Brand::where('status', 'active')
+            ->orderBy('title', 'ASC')
+            ->get();
+
+        return view('frontend.v1.pages.product-lists')
+            ->with('products', $products)
+            ->with('recent_products', $recent_products)
+            ->with('menu', $menu)
+            ->with('productCounts', $productCounts)
+            ->with('brands', $brands);
     }
     public function productFilter(Request $request)
     {
@@ -330,7 +424,7 @@ class FrontendController extends Controller
         if (request()->is('e-shop.loc/product-grids')) {
             return redirect()->route('product-grids', $catURL . $brandURL . $priceRangeURL . $showURL . $sortByURL);
         } else {
-            return redirect()->route('product-lists', $catURL . $brandURL . $priceRangeURL . $showURL . $sortByURL);
+            return redirect()->route('product-list.v1', $catURL . $brandURL . $priceRangeURL . $showURL . $sortByURL);
         }
     }
     public function productSearch(Request $request)
@@ -350,23 +444,14 @@ class FrontendController extends Controller
     {
         $products = Brand::getProductByBrand($request->slug);
         $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
-        if (request()->is('e-shop.loc/product-grids')) {
-            return view('frontend.pages.product-grids')->with('products', $products->products)->with('recent_products', $recent_products);
-        } else {
-            return view('frontend.pages.product-lists')->with('products', $products->products)->with('recent_products', $recent_products);
-        }
+        return view('frontend.v1.pages.product-lists')->with('products', $products->products)->with('recent_products', $recent_products);
     }
     public function productCat(Request $request)
     {
         $products = Category::getProductByCat($request->slug);
         // return $request->slug;
         $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
-
-        if (request()->is('e-shop.loc/product-grids')) {
-            return view('frontend.pages.product-grids')->with('products', $products->products)->with('recent_products', $recent_products);
-        } else {
-            return view('frontend.pages.product-lists')->with('products', $products->products)->with('recent_products', $recent_products);
-        }
+        return view('frontend.v1.pages.product-lists')->with('products', $products->products)->with('recent_products', $recent_products);
     }
     public function productSubCat(Request $request)
     {
@@ -374,11 +459,7 @@ class FrontendController extends Controller
         // return $products;
         $recent_products = Product::where('status', 'active')->orderBy('id', 'DESC')->limit(3)->get();
 
-        if (request()->is('e-shop.loc/product-grids')) {
-            return view('frontend.pages.product-grids')->with('products', $products->sub_products)->with('recent_products', $recent_products);
-        } else {
-            return view('frontend.pages.product-lists')->with('products', $products->sub_products)->with('recent_products', $recent_products);
-        }
+        return view('frontend.v1.pages.product-lists')->with('products', $products->sub_products)->with('recent_products', $recent_products);
     }
 
     public function blog()
