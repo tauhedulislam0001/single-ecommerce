@@ -103,6 +103,10 @@ Route::prefix('v1')->group(function () {
     Route::get('/product-grids', [FrontendControllerV1::class, 'productGrids'])->name('product-grids');
     Route::get('/product-list', [FrontendControllerV1::class, 'productLists'])->name('product-list.v1');
     Route::match(['get', 'post'], '/filter', [FrontendControllerV1::class, 'productFilter'])->name('shop.filter.v1');
+
+    // quick view routes
+    Route::get('/product/quickview', [FrontendControllerV1::class, 'quickview'])->name('product.quickview');
+
     // Order Track
     Route::get('/product/track', [OrderController::class, 'orderTrack'])->name('order.track');
     Route::post('product/track/order', [OrderController::class, 'productTrackOrder'])->name('product.track.order');
